@@ -36,12 +36,6 @@ struct Film
 	inline bool operator<(const Film & other) const;
 };
 
-auto lessPredicateWithAttr(Film::Attribute attr)
-{
-	return [=] (const Film & lhs, const Film & rhs) -> bool
-	{
-		return lhs.attributes.at(Film::NamesAttributes[attr]) < rhs.attributes.at(Film::NamesAttributes[attr]);
-	};
-}
+std::function<bool(const Film &, const Film &)> lessPredicateWithAttr(Film::Attribute);
 
 #endif // FILM_H

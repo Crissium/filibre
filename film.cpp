@@ -15,3 +15,11 @@ bool Film::operator<(const Film &other) const
 {
 	return id < other.id;
 }
+
+std::function<bool(const Film &, const Film &)> lessPredicateWithAttr(Film::Attribute attr)
+{
+	return [=] (const Film & lhs, const Film & rhs) -> bool
+	{
+		return lhs.attributes.at(Film::NamesAttributes[attr]) < rhs.attributes.at(Film::NamesAttributes[attr]);
+	};
+}
