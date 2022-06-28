@@ -16,11 +16,13 @@ unix {
 
 SOURCES += \
     film.cpp \
+    filmcollection.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     film.h \
+    filmcollection.h \
     mainwindow.h
 
 FORMS += \
