@@ -33,7 +33,7 @@ struct Film
 	Film();
 
 	inline bool operator==(const Film & other) const;
-	inline bool operator<(const Film & other) const;
+    bool operator<(const Film & other) const;
 };
 
 std::function<bool(const Film &, const Film &)> lessPredicateWithAttr(Film::Attribute);
