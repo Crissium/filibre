@@ -39,3 +39,4 @@ struct Film
 std::function<bool(const Film &, const Film &)> lessPredicateWithAttr(Film::Attribute);
 
 #endif // FILM_H
+

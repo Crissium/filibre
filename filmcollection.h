@@ -16,7 +16,7 @@ public:
  *
  * At a particular time we should only have one copy of the film collection.
  * This class is the full collection stored concretely in memory.
- * I think, tentatively, all operations should be performed with refs.
+ * I think, tentatively, all operations should be performed with pointers.
  */
 class FilmCollection : public std::list<Film>
 {
