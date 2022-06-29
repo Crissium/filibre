@@ -2,8 +2,22 @@
 #define FILMCOLLECTION_H
 
 #include <list>
+#include <set>
 #include "film.h"
 
+class FilmList : public std::list<Film *>
+{
+public:
+
+};
+
+/**
+ * @brief Film collection stored in memory
+ *
+ * At a particular time we should only have one copy of the film collection.
+ * This class is the full collection stored concretely in memory.
+ * I think, tentatively, all operations should be performed with refs.
+ */
 class FilmCollection : public std::list<Film>
 {
 /*
@@ -18,7 +32,10 @@ public:
 	FilmCollection();
 	FilmCollection(const std::string & xmlFileName);
 
-	void writeToXmlFile(const std::string & xmlFileName) const;
+	void writeToXmlFile(const std::string & xmlFileName);
+
+	std::set<std::string> allValuesOfAttribute(Film::Attribute) const;
+	FilmList filmsWithAttributeValue(Film::Attribute, const std::string & value);
 };
 
 #endif // FILMCOLLECTION_H

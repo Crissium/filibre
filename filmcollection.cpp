@@ -1,6 +1,6 @@
 #include "filmcollection.h"
 #include <pugixml.hpp>
-#include <string>
+#include <algorithm>
 
 FilmCollection::FilmCollection()
 {
@@ -35,8 +35,10 @@ FilmCollection::FilmCollection(const std::string & xmlFileName)
 	}
 }
 
-void FilmCollection::writeToXmlFile(const std::string &xmlFileName) const
+void FilmCollection::writeToXmlFile(const std::string &xmlFileName)
 {
+	sort();
+
 	pugi::xml_document doc;
 	auto filmList = doc.append_child("collection");
 
@@ -54,4 +56,27 @@ void FilmCollection::writeToXmlFile(const std::string &xmlFileName) const
 
 	if (!doc.save_file(xmlFileName.c_str(), "\t", pugi::format_default, pugi::encoding_utf8))
 		throw "File saving error\n";
+}
+
+std::set<std::string> FilmCollection::allValuesOfAttribute(Film::Attribute attr) const
+{
+	std::set<std::string> valueSet;
+
+	std::transform(cbegin(), cend(), std::inserter(valueSet, valueSet.begin()), [attr] (const Film & f)
+	{return f.attributes.at(Film::NamesAttributes[attr]);});
+
+	return valueSet;
+}
+
+FilmList FilmCollection::filmsWithAttributeValue(Film::Attribute attr, const std::string & value)
+{
+	FilmList l;
+
+	for (auto & film : *this)
+	{
+		if (film.attributes.at(Film::NamesAttributes[attr]) == value)
+			l.push_back(&film);
+	}
+
+	return l;
 }
