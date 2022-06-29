@@ -1,7 +1,7 @@
 #ifndef FILM_H
 #define FILM_H
 
-#include <QString>
+#include <functional>
 #include <string>
 #include <array>
 #include <unordered_map>
