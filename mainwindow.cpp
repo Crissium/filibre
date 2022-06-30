@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 	createActions();
 	createMenus();
-	createLeftList();
+	//createLeftList();
 
 	readSettings();
 }
@@ -120,7 +120,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 		collection->writeToXmlFile(currentlyUsedCollectionXmlFilePath.toStdString());
 	}  catch (const char * msg) {
 		qDebug() << "Saving to " << currentlyUsedCollectionXmlFilePath << " failed!";
-		auto newFileName = QFileDialog::getSaveFileName(this, "Saving failed, please select a new location");
+		auto newFileName = QFileDialog::getSaveFileName(this, "Saving failed, please select a new location", "XML (*.xml)");
 		try {
 			collection->writeToXmlFile(newFileName.toStdString());
 		}  catch (const char * stillFailedMsg) {
@@ -149,11 +149,11 @@ void MainWindow::loadCollectionFromXml()
 
 void MainWindow::createNewCollection()
 {
-	currentlyUsedCollectionXmlFilePath = QFileDialog::getSaveFileName(this, "Create new collection", QDir::homePath() + "/new_collection.xml");
+	currentlyUsedCollectionXmlFilePath = QFileDialog::getSaveFileName(this, "Create new collection", QDir::homePath() + "/new_collection.xml", "XML (*.xml)");
 
 	while (currentlyUsedCollectionXmlFilePath.isEmpty())
 	{
-		currentlyUsedCollectionXmlFilePath = QFileDialog::getSaveFileName(this, "Create new collection", QDir::homePath() + "/new_collection.xml");
+		currentlyUsedCollectionXmlFilePath = QFileDialog::getSaveFileName(this, "Create new collection", QDir::homePath() + "/new_collection.xml", "XML (*.xml)");
 	}
 	currentlyDisplayedFilms.clear();
 
@@ -162,7 +162,7 @@ void MainWindow::createNewCollection()
 
 void MainWindow::openExistingCollection()
 {
-	currentlyUsedCollectionXmlFilePath = QFileDialog::getOpenFileName(this, "Select collection");
+	currentlyUsedCollectionXmlFilePath = QFileDialog::getOpenFileName(this, "Select collection", QDir::homePath(), "XML (*.xml)");
 
 	if (!currentlyUsedCollectionXmlFilePath.isEmpty())
 	{
