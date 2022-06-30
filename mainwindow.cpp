@@ -3,6 +3,7 @@
 #include <QSettings>
 #include <QDebug>
 #include <QFileDialog>
+#include <QDir>
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
@@ -115,6 +116,20 @@ void MainWindow::writeSettings()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
+	try {
+		collection->writeToXmlFile(currentlyUsedCollectionXmlFilePath.toStdString());
+	}  catch (const char * msg) {
+		qDebug() << "Saving to " << currentlyUsedCollectionXmlFilePath << " failed!";
+		auto newFileName = QFileDialog::getSaveFileName(this, "Saving failed, please select a new location");
+		try {
+			collection->writeToXmlFile(newFileName.toStdString());
+		}  catch (const char * stillFailedMsg) {
+			qDebug() << "Still failed! I think this should be impossible!";
+		}
+		writeSettings();
+		event->accept();
+	}
+
 	writeSettings();
 	event->accept();
 }
@@ -134,7 +149,12 @@ void MainWindow::loadCollectionFromXml()
 
 void MainWindow::createNewCollection()
 {
-	currentlyUsedCollectionXmlFilePath.clear();
+	currentlyUsedCollectionXmlFilePath = QFileDialog::getSaveFileName(this, "Create new collection", QDir::homePath() + "/new_collection.xml");
+
+	while (currentlyUsedCollectionXmlFilePath.isEmpty())
+	{
+		currentlyUsedCollectionXmlFilePath = QFileDialog::getSaveFileName(this, "Create new collection", QDir::homePath() + "/new_collection.xml");
+	}
 	currentlyDisplayedFilms.clear();
 
 	collection = new FilmCollection;
