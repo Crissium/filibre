@@ -21,6 +21,7 @@ SOURCES += \
     film.cpp \
     filmcollection.cpp \
     leftlist.cpp \
+	filmitem.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -28,6 +29,7 @@ HEADERS += \
     film.h \
     filmcollection.h \
     leftlist.h \
+	filmitem.h \
     mainwindow.h
 
 FORMS += \
