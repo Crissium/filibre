@@ -32,9 +32,6 @@ private slots:
 	void createNewCollection();
 	void openExistingCollection();
 
-	void about();
-	void aboutQt();
-
 private:
 	Ui::MainWindow *ui;
 
@@ -52,6 +49,7 @@ private:
 	QAction * editMetadataAction;
 	QAction * deleteItemAction;
 	QAction * playAction;
+	QAction * openPosterAction;
 
 	QAction * sortActions[Film::NumAttributes];
 

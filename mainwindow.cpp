@@ -5,6 +5,8 @@
 #include <QFileDialog>
 #include <QDir>
 #include <QMessageBox>
+#include <QDesktopServices>
+#include <QUrl>
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
@@ -24,16 +26,6 @@ MainWindow::~MainWindow()
 {
 	delete collection;
 	delete ui;
-}
-
-void MainWindow::about()
-{
-	QMessageBox::about(this, "About filibre", "Filibre is a calibre-like film management tool.\nAuthors:\nXing Yi\nLin Duoming\nZhao Kehan");
-}
-
-void MainWindow::aboutQt()
-{
-	QMessageBox::aboutQt(this, "About Qt");
 }
 
 void MainWindow::createActions()
@@ -57,6 +49,11 @@ void MainWindow::createActions()
 
 	playAction = new QAction("&Play", this);
 
+	openPosterAction = new QAction("Open &poster", this);
+	connect(openPosterAction, &QAction::triggered, this, [this] ()
+	{QDesktopServices::openUrl(QUrl::fromLocalFile(this->currentlySelectedFilm->attributes.at(Film::NamesAttributes[Film::PosterPath]).c_str()));});
+
+
 	for (size_t i = 0; i < Film::NumAttributes; ++i)
 	{
 		sortActions[i] = new QAction(Film::NamesAttributes[i].c_str(), this);
@@ -68,10 +65,10 @@ void MainWindow::createActions()
 	}
 
 	aboutAction = new QAction("About filibre");
-	connect(aboutAction, &QAction::triggered, this, &MainWindow::about);
+	connect(aboutAction, &QAction::triggered, this, [this] () {QMessageBox::about(this, "About filibre", "Filibre is a calibre-like film management tool.\nAuthors:\nXing Yi\nLin Duoming\nZhao Kehan");});
 
 	aboutQtAction = new QAction("About Qt");
-	connect(aboutQtAction, &QAction::triggered, this, &MainWindow::aboutQt);
+	connect(aboutQtAction, &QAction::triggered, this, [this] () {QMessageBox::aboutQt(this, "About Qt");});
 }
 
 void MainWindow::createMenus()
@@ -87,6 +84,7 @@ void MainWindow::createMenus()
 	editMenu->addAction(editMetadataAction);
 	editMenu->addAction(deleteItemAction);
 	editMenu->addAction(playAction);
+	editMenu->addAction(openPosterAction);
 
 	sortMenu = menuBar()->addMenu("&Sort by");
 	for (size_t i = 0; i < Film::NumAttributes; ++i)
