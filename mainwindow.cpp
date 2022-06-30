@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QFileDialog>
 #include <QDir>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
@@ -23,6 +24,16 @@ MainWindow::~MainWindow()
 {
 	delete collection;
 	delete ui;
+}
+
+void MainWindow::about()
+{
+	QMessageBox::about(this, "About filibre", "Filibre is a calibre-like film management tool.\nAuthors:\nXing Yi\nLin Duoming\nZhao Kehan");
+}
+
+void MainWindow::aboutQt()
+{
+	QMessageBox::aboutQt(this, "About Qt");
 }
 
 void MainWindow::createActions()
@@ -56,7 +67,11 @@ void MainWindow::createActions()
 		});
 	}
 
-	aboutAction = new QAction("&About filibre");
+	aboutAction = new QAction("About filibre");
+	connect(aboutAction, &QAction::triggered, this, &MainWindow::about);
+
+	aboutQtAction = new QAction("About Qt");
+	connect(aboutQtAction, &QAction::triggered, this, &MainWindow::aboutQt);
 }
 
 void MainWindow::createMenus()
@@ -79,8 +94,9 @@ void MainWindow::createMenus()
 		sortMenu->addAction(sortActions[i]);
 	}
 
-	aboutMenu = menuBar()->addMenu("&About");
-	aboutMenu->addAction(aboutAction);
+	helpMenu = menuBar()->addMenu("&Help");
+	helpMenu->addAction(aboutAction);
+	helpMenu->addAction(aboutQtAction);
 }
 
 void MainWindow::createLeftList()

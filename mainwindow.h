@@ -32,13 +32,16 @@ private slots:
 	void createNewCollection();
 	void openExistingCollection();
 
+	void about();
+	void aboutQt();
+
 private:
 	Ui::MainWindow *ui;
 
 	QMenu * fileMenu;
 	QMenu * editMenu;
 	QMenu * sortMenu;
-	QMenu * aboutMenu;
+	QMenu * helpMenu;
 
 	QAction * newCollectionAction;
 	QAction * openCollectionAction;
@@ -53,6 +56,7 @@ private:
 	QAction * sortActions[Film::NumAttributes];
 
 	QAction * aboutAction;
+	QAction * aboutQtAction;
 
 	void createActions();
 	void createMenus();
