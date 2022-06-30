@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>film-image-fallback.png</file>
+    </qresource>
+</RCC>
