@@ -191,6 +191,9 @@ void MainWindow::openExistingCollection()
 			loadCollectionFromXml();
 		}  catch (const char * msg) {
 			qDebug() << msg;
+			QMessageBox msgBox(this);
+			msgBox.setText("Please select a valid collection!");
+			msgBox.exec();
 		}
 	}
 }
