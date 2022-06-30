@@ -3,14 +3,6 @@
 #include <algorithm>
 #include <iostream>
 
-std::function<bool(const Film *, const Film *)> filmSortingWithPointerPredicateUsing(Film::Attribute attr)
-{
-	return [attr] (const Film * lhs, const Film * rhs)
-	{
-		return lhs->attributes.at(Film::NamesAttributes[attr]) < rhs->attributes.at(Film::NamesAttributes[attr]);
-	};
-}
-
 FilmCollection::FilmCollection()
 {
 }

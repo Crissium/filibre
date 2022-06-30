@@ -1,7 +1,6 @@
 #ifndef FILM_H
 #define FILM_H
 
-#include <functional>
 #include <string>
 #include <array>
 #include <unordered_map>
@@ -38,4 +37,3 @@ struct Film
 };
 
 #endif // FILM_H
-

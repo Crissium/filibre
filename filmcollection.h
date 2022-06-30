@@ -10,8 +10,6 @@ class FilmList : public std::list<Film *>
 public:
 };
 
-std::function<bool(const Film *, const Film *)> filmSortingWithPointerPredicateUsing(Film::Attribute);
-
 /**
  * @brief Film collection stored in memory
  *

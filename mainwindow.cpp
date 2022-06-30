@@ -49,6 +49,11 @@ void MainWindow::createActions()
 	for (size_t i = 0; i < Film::NumAttributes; ++i)
 	{
 		sortActions[i] = new QAction(Film::NamesAttributes[i].c_str(), this);
+		connect(sortActions[i], &QAction::triggered, this, [this, i] ()
+		{
+			this->currentlyDisplayedFilms.sort([i] (const Film * lhs, const Film * rhs)
+			{return lhs->attributes.at(Film::NamesAttributes[i]) < rhs->attributes.at(Film::NamesAttributes[i]);});
+		});
 	}
 
 	aboutAction = new QAction("&About filibre");
