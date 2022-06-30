@@ -2,27 +2,27 @@
 #define LEFTLIST_H
 
 #include <QWidget>
-#include <QTreeView>
+#include <QPushButton>
+#include <list>
 
 #include "filmcollection.h"
 
-
-class LeftList : QWidget
+class LeftList : public QWidget
 {
 	Q_OBJECT
 public:
 	explicit LeftList(QWidget *parent = nullptr);
-	~LeftList();
 	void changeFilm_lessPredicateWithAttr();
 	void showFavourites();
 	void showAllFilm();
 
 signals:
-	void showThisFilm(Film *);
+	void showThisFilm(Film::Attribute, std::string);
 
 private:
 	bool showFavouritesOnly;
-	QTreeView * data;
+	int chosenAttribute;
+	std::string chosenAttriVal;
 };
 
 #endif // LEFTLIST_H
