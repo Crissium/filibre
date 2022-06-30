@@ -13,6 +13,9 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
+private:
+	FilmCollection collection; // The only concrete info in memory, others are pointers
+	FilmList currentlyDisplayedFilms;
 
 public:
 	MainWindow(QWidget *parent = nullptr);
