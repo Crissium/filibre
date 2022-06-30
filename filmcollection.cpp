@@ -1,6 +1,7 @@
 #include "filmcollection.h"
 #include <pugixml.hpp>
 #include <algorithm>
+#include <iostream>
 
 FilmCollection::FilmCollection()
 {
@@ -16,6 +17,7 @@ FilmCollection::FilmCollection(const std::string & xmlFileName)
 	 */
 
 	pugi::xml_document doc;
+	std::cout << "Opening collection " << xmlFileName << '\n';
 	if (!doc.load_file(xmlFileName.c_str()))
 		throw "parsing error\n";
 
@@ -91,6 +93,18 @@ FilmList FilmCollection::favourites()
 	{
 		if (film.favourite)
 			l.push_back(&film);
+	}
+
+	return l;
+}
+
+FilmList FilmCollection::all()
+{
+	FilmList l;
+
+	for (auto & film : *this)
+	{
+		l.push_back(&film);
 	}
 
 	return l;

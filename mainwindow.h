@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMenu>
 #include <QMenuBar>
+#include <QCloseEvent>
 #include "filmcollection.h"
 #include "leftlist.h"
 
@@ -15,15 +16,21 @@ class MainWindow : public QMainWindow
 {
 	Q_OBJECT
 private:
-	FilmCollection collection; // The only concrete info in memory, others are pointers
+	FilmCollection * collection; // The only concrete info in memory, others are pointers
 	FilmList currentlyDisplayedFilms;
+	Film * currentlySelectedFilm;
+	QString currentlyUsedCollectionXmlFilePath;
 
 public:
 	MainWindow(QWidget *parent = nullptr);
 	~MainWindow();
 
-private slots:
+protected:
+	void closeEvent(QCloseEvent *event) override;
 
+private slots:
+	void createNewCollection();
+	void openExistingCollection();
 
 private:
 	Ui::MainWindow *ui;
@@ -52,5 +59,10 @@ private:
 
 	LeftList * leftList;
 	void createLeftList();
+
+	void readSettings();
+	void writeSettings();
+
+	void loadCollectionFromXml();
 };
 #endif // MAINWINDOW_H

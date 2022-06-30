@@ -1,8 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QSettings>
+#include <QDebug>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
+	, currentlySelectedFilm(nullptr)
 	, ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
@@ -10,18 +14,23 @@ MainWindow::MainWindow(QWidget *parent)
 	createActions();
 	createMenus();
 	createLeftList();
+
+	readSettings();
 }
 
 MainWindow::~MainWindow()
 {
+	delete collection;
 	delete ui;
 }
 
 void MainWindow::createActions()
 {
 	newCollectionAction = new QAction("&New collection", this);
+	connect(newCollectionAction, &QAction::triggered, this, &MainWindow::createNewCollection);
 
 	openCollectionAction = new QAction("&Open collection", this);
+	connect(openCollectionAction, &QAction::triggered, this, &MainWindow::openExistingCollection);
 
 	addItemAction = new QAction("&Add item", this);
 
@@ -71,4 +80,76 @@ void MainWindow::createMenus()
 void MainWindow::createLeftList()
 {
 	leftList = new LeftList(this);
+}
+
+void MainWindow::readSettings()
+{
+	QSettings settings("FilibreTeam", "filibre");
+
+	settings.beginGroup("mainwindow");
+	resize(settings.value("size").toSize());
+	if (settings.value("fullscreen").toBool())
+		showFullScreen();
+	settings.endGroup();
+
+	settings.beginGroup("library");
+	currentlyUsedCollectionXmlFilePath = settings.value("xmlpath").toString();
+	if (!currentlyUsedCollectionXmlFilePath.isEmpty())
+		loadCollectionFromXml();
+	settings.endGroup();
+}
+
+void MainWindow::writeSettings()
+{
+	QSettings settings("FilibreTeam", "filibre");
+
+	settings.beginGroup("mainwindow");
+	settings.setValue("size", size());
+	settings.setValue("fullScreen", isFullScreen());
+	settings.endGroup();
+
+	settings.beginGroup("library");
+	settings.setValue("xmlpath", currentlyUsedCollectionXmlFilePath);
+	settings.endGroup();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+	writeSettings();
+	event->accept();
+}
+
+void MainWindow::loadCollectionFromXml()
+{
+	try {
+		collection = new FilmCollection(currentlyUsedCollectionXmlFilePath.toStdString());
+	}  catch (const char * msg) {
+		qDebug() << "XML file is invalid, loading failed!\n";
+		currentlyUsedCollectionXmlFilePath.clear();
+		throw "Load failure!\n";
+	}
+
+	currentlyDisplayedFilms = collection->all();
+}
+
+void MainWindow::createNewCollection()
+{
+	currentlyUsedCollectionXmlFilePath.clear();
+	currentlyDisplayedFilms.clear();
+
+	collection = new FilmCollection;
+}
+
+void MainWindow::openExistingCollection()
+{
+	currentlyUsedCollectionXmlFilePath = QFileDialog::getOpenFileName(this, "Select collection");
+
+	if (!currentlyUsedCollectionXmlFilePath.isEmpty())
+	{
+		try {
+			loadCollectionFromXml();
+		}  catch (const char * msg) {
+			qDebug() << msg;
+		}
+	}
 }
