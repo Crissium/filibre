@@ -24,7 +24,7 @@ class FilmCollection : public std::list<Film>
  * Sample XML used:
  * <?xml version="1.0" encoding="UTF-8"?>
 <collection>
-	<item ID="0" Title="Braveheart" Director="Mel Gibson" Lead="Mel Gibson" Year="1995" Genre="whatever" Poster="/home/ellis/Pictures/unnamed.png" Language="English" Synopsis="emm" Rating="8" Path="/path/to/film.mkv" Description="emm" Accolades="Oscar"/>
+	<item Favourite="true" ID="0" Title="Braveheart" Director="Mel Gibson" Lead="Mel Gibson" Year="1995" Genre="whatever" Poster="/home/ellis/Pictures/unnamed.png" Language="English" Synopsis="emm" Rating="8" Path="/path/to/film.mkv" Description="emm" Accolades="Oscar"/>
 </collection>
  */
 
@@ -36,6 +36,7 @@ public:
 
 	std::set<std::string> allValuesOfAttribute(Film::Attribute) const;
 	FilmList filmsWithAttributeValue(Film::Attribute, const std::string & value);
+	FilmList favourites();
 };
 
 #endif // FILMCOLLECTION_H

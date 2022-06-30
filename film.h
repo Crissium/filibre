@@ -28,6 +28,7 @@ struct Film
 	static const std::array<const std::string, NumAttributes> NamesAttributes;
 
 	size_t id;
+	bool favourite;
 	std::unordered_map<std::string, std::string> attributes;
 
 	Film();

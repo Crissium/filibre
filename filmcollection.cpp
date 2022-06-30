@@ -24,7 +24,8 @@ FilmCollection::FilmCollection(const std::string & xmlFileName)
 	{
 		Film film;
 
-		film.id = item.attribute("id").as_uint();
+		film.favourite = item.attribute("Favourite").as_bool();
+		film.id = item.attribute("ID").as_uint();
 
 		for (auto const & attr : Film::NamesAttributes)
 		{
@@ -46,6 +47,7 @@ void FilmCollection::writeToXmlFile(const std::string &xmlFileName)
 	{
 		auto item = filmList.append_child("item");
 
+		item.append_attribute("Favourite").set_value(film.favourite);
 		item.append_attribute("ID").set_value(film.id);
 
 		for (auto const & attr : Film::NamesAttributes)
@@ -75,6 +77,19 @@ FilmList FilmCollection::filmsWithAttributeValue(Film::Attribute attr, const std
 	for (auto & film : *this)
 	{
 		if (film.attributes.at(Film::NamesAttributes[attr]) == value)
+			l.push_back(&film);
+	}
+
+	return l;
+}
+
+FilmList FilmCollection::favourites()
+{
+	FilmList l;
+
+	for (auto & film : *this)
+	{
+		if (film.favourite)
 			l.push_back(&film);
 	}
 
