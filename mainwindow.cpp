@@ -97,6 +97,8 @@ void MainWindow::readSettings()
 	currentlyUsedCollectionXmlFilePath = settings.value("xmlpath").toString();
 	if (!currentlyUsedCollectionXmlFilePath.isEmpty())
 		loadCollectionFromXml();
+	else
+		createNewCollection(); // on first run, create new collection
 	settings.endGroup();
 }
 
