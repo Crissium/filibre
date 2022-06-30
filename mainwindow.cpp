@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 	createActions();
 	createMenus();
+	createLeftList();
 }
 
 MainWindow::~MainWindow()
@@ -65,4 +66,9 @@ void MainWindow::createMenus()
 
 	aboutMenu = menuBar()->addMenu("&About");
 	aboutMenu->addAction(aboutAction);
+}
+
+void MainWindow::createLeftList()
+{
+	leftList = new LeftList(this);
 }

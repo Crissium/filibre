@@ -5,6 +5,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include "filmcollection.h"
+#include "leftlist.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -48,5 +49,8 @@ private:
 
 	void createActions();
 	void createMenus();
+
+	LeftList * leftList;
+	void createLeftList();
 };
 #endif // MAINWINDOW_H

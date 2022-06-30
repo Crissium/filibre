@@ -20,12 +20,14 @@ unix {
 SOURCES += \
     film.cpp \
     filmcollection.cpp \
+    leftlist.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     film.h \
     filmcollection.h \
+    leftlist.h \
     mainwindow.h
 
 FORMS += \
