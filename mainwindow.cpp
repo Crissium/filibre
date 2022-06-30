@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 	createActions();
 	createMenus();
-	//createLeftList();
+	createLeftList();
 
 	readSettings();
 }
