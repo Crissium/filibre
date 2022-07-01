@@ -7,7 +7,10 @@
 #include <QCloseEvent>
 #include <QTreeView>
 #include <QStandardItemModel>
+#include <QGraphicsScene>
+#include <QGraphicsView>
 #include "filmcollection.h"
+#include "collectiondisplay.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -60,10 +63,13 @@ private:
 	void createActions();
 	void createMenus();
 
-	QTreeView * leftView;
 	QStandardItemModel * leftList;
 	QStandardItem * Director;
 	void createLeft();
+
+	QGraphicsScene * scene;
+	CollectionDisplay * display;
+	void createCollectionView();
 
 	void readSettings();
 	void writeSettings();

@@ -18,6 +18,7 @@ unix {
 }
 
 SOURCES += \
+	collectiondisplay.cpp \
     film.cpp \
     filmcollection.cpp \
 	filmitem.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+	collectiondisplay.h \
     film.h \
     filmcollection.h \
 	filmitem.h \

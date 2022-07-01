@@ -15,12 +15,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
 	ui->setupUi(this);
 
+	readSettings();
+
 	createActions();
 	createMenus();
 
-	readSettings();
-
 	createLeft();
+	createCollectionView();
 }
 
 MainWindow::~MainWindow()
@@ -102,8 +103,10 @@ void MainWindow::createLeft()
 {
 	leftList = new QStandardItemModel;
 	Director = leftList->invisibleRootItem();
-	for(size_t attr = Film::Title; attr < Film::NumAttributes; ++ attr)
+	for (size_t attr = Film::Title; attr < Film::NumAttributes; ++attr)
 	{
+		if (attr == Film::Path || attr == Film::PosterPath || attr == Film::Description || attr == Film::Synopsis)
+			continue;
 		QStandardItem * thisAttr = new QStandardItem;
 		thisAttr->setText(tr(Film::NamesAttributes[attr].c_str()));
 		std::set<std::string> const typeAttr = collection->allValuesOfAttribute(attr);
@@ -115,11 +118,20 @@ void MainWindow::createLeft()
 		}
 		Director->appendRow(thisAttr);
 	}
-	leftView = new QTreeView(this);
-	leftView->setModel(leftList);
-	leftView->setMinimumWidth(280);
-	leftView->setMinimumHeight(this->height() - 20);
-	leftView->move(0,20);
+	ui->leftNavigationTree->setModel(leftList);
+	ui->leftNavigationTree->setMinimumWidth(280);
+	ui->leftNavigationTree->setMaximumWidth(280);
+}
+
+void MainWindow::createCollectionView()
+{
+	scene = new QGraphicsScene(ui->collectionView);
+
+	display = new CollectionDisplay(currentlyDisplayedFilms, size().width() - 500, scene);
+	scene->addItem(display);
+	ui->collectionView->setScene(scene);
+	ui->collectionView->setMinimumSize(QSize(size().width() - 500, size().height()));
+	ui->collectionView->show();
 }
 
 void MainWindow::readSettings()
