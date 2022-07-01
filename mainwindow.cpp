@@ -109,11 +109,13 @@ void MainWindow::createLeft()
 			continue;
 		QStandardItem * thisAttr = new QStandardItem;
 		thisAttr->setText(tr(Film::NamesAttributes[attr].c_str()));
+		thisAttr->setEditable(false);
 		std::set<std::string> const typeAttr = collection->allValuesOfAttribute(attr);
 		for(auto const & typical : typeAttr)
 		{
 			QStandardItem * thisType = new QStandardItem;
 			thisType->setText(tr(typical.c_str()));
+			thisType->setEditable(false);
 			thisAttr->appendRow(thisType);
 		}
 		Director->appendRow(thisAttr);
