@@ -20,7 +20,6 @@ unix {
 SOURCES += \
     film.cpp \
     filmcollection.cpp \
-    leftlist.cpp \
 	filmitem.cpp \
     main.cpp \
     mainwindow.cpp
@@ -28,7 +27,6 @@ SOURCES += \
 HEADERS += \
     film.h \
     filmcollection.h \
-    leftlist.h \
 	filmitem.h \
     mainwindow.h
 

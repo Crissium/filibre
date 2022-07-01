@@ -1,5 +1,5 @@
 #include "filmitem.h"
-
+/*
 FilmItem::FilmItem()
 {
 }
@@ -11,3 +11,4 @@ FilmItem::FilmItem(Film * f)
 
 }
 
+*/

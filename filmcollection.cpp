@@ -62,7 +62,7 @@ void FilmCollection::writeToXmlFile(const std::string &xmlFileName)
 		throw "File saving error\n";
 }
 
-std::set<std::string> FilmCollection::allValuesOfAttribute(Film::Attribute attr) const
+std::set<std::string> FilmCollection::allValuesOfAttribute(int attr) const
 {
 	std::set<std::string> valueSet;
 

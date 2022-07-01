@@ -33,7 +33,7 @@ public:
 
 	void writeToXmlFile(const std::string & xmlFileName);
 
-	std::set<std::string> allValuesOfAttribute(Film::Attribute) const;
+	std::set<std::string> allValuesOfAttribute(/*Film::Attribute*/int) const;
 	FilmList filmsWithAttributeValue(Film::Attribute, const std::string & value);
 	FilmList favourites();
 	FilmList all();

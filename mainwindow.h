@@ -5,8 +5,9 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QCloseEvent>
+#include <QTreeView>
+#include <QStandardItemModel>
 #include "filmcollection.h"
-#include "leftlist.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -59,12 +60,16 @@ private:
 	void createActions();
 	void createMenus();
 
-	LeftList * leftList;
-	void createLeftList();
+	QTreeView * leftView;
+	QStandardItemModel * leftList;
+	QStandardItem * Director;
+	void createLeft();
 
 	void readSettings();
 	void writeSettings();
 
 	void loadCollectionFromXml();
 };
+
+
 #endif // MAINWINDOW_H

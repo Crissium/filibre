@@ -1,6 +1,6 @@
 #ifndef FILMITEM_H
 #define FILMITEM_H
-
+/*
 #include <QGraphicsItem>
 #include <QImage>
 #include "film.h"
@@ -18,6 +18,6 @@ public:
 	FilmItem(Film * );
 	~FilmItem();
 };
-
+*/
 #endif // FILMITEM_H
 

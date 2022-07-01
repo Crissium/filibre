@@ -17,9 +17,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 	createActions();
 	createMenus();
-	createLeftList();
 
 	readSettings();
+
+	createLeft();
 }
 
 MainWindow::~MainWindow()
@@ -97,9 +98,28 @@ void MainWindow::createMenus()
 	helpMenu->addAction(aboutQtAction);
 }
 
-void MainWindow::createLeftList()
+void MainWindow::createLeft()
 {
-	leftList = new LeftList(this);
+	leftList = new QStandardItemModel;
+	Director = leftList->invisibleRootItem();
+	for(size_t attr = Film::Title; attr < Film::NumAttributes; ++ attr)
+	{
+		QStandardItem * thisAttr = new QStandardItem;
+		thisAttr->setText(tr(Film::NamesAttributes[attr].c_str()));
+		std::set<std::string> const typeAttr = collection->allValuesOfAttribute(attr);
+		for(auto const & typical : typeAttr)
+		{
+			QStandardItem * thisType = new QStandardItem;
+			thisType->setText(tr(typical.c_str()));
+			thisAttr->appendRow(thisType);
+		}
+		Director->appendRow(thisAttr);
+	}
+	leftView = new QTreeView(this);
+	leftView->setModel(leftList);
+	leftView->setMinimumWidth(280);
+	leftView->setMinimumHeight(this->height() - 20);
+	leftView->move(0,20);
 }
 
 void MainWindow::readSettings()
