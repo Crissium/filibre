@@ -69,7 +69,7 @@ void FilmCollection::writeToHtmlInventory(const std::string & inventoryFileName)
 
 	std::ofstream inventory(inventoryFileName);
 
-	inventory << "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>Film Collection Inventory</title>\n<style>\nbody {margin: 0 10%;font-family: serif;}\nh1 {text-align: center;font-family: serif;font-weight: bold;border-bottom: 1px solid sienna;margin-top: 30px;}\nh2 {text-align: center;font-family: serif;font-weight: bold;margin-top: 30px;font-size: 3em;}\n</style>\n</head>\n<body>\n<h1><br>Film Collection Inventory</h1>\n";
+	inventory << "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>Film Collection Inventory</title>\n<style>\nbody {margin: 0 10%;font-family: serif;}\nh1 {text-align: center;font-family: serif;font-weight: bold;border-bottom: 1px solid sienna;margin-top: 30px;}\nh2 {text-align: center;font-family: serif;font-weight: bold;margin-top: auto;margin-bottom: auto;font-size: 3em;}\nimg {height: 300px;width: auto;}\n</style>\n</head>\n<body>\n<h1><br>Film Collection Inventory</h1>\n";
 
 	for (auto const & film : *this)
 	{
