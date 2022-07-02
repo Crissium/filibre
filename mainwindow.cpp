@@ -97,6 +97,10 @@ void MainWindow::createMenus()
 	editMenu->addAction(playAction);
 	editMenu->addAction(openPosterAction);
 
+	editMenu->setDisabled(true); // disable on startup
+	connect(this, &MainWindow::currentlySelectedFilmChanged, editMenu, [this] ()
+	{editMenu->setDisabled(!currentlySelectedFilm);});
+
 	sortMenu = menuBar()->addMenu("&Sort by");
 	for (size_t i = 0; i < Film::NumAttributes; ++i)
 	{
