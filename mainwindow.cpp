@@ -107,16 +107,23 @@ void MainWindow::createActions()
 	{QDesktopServices::openUrl(QUrl::fromLocalFile(this->currentlySelectedFilm->attributes.at(Film::NamesAttributes[Film::PosterPath]).c_str()));});
 
 
-	for (size_t i = 0; i < Film::NumAttributes; ++i)
+	for (size_t i = 0, j = 0; i < Film::NumAttributes;)
 	{
-		sortActions[i] = new QAction(Film::NamesAttributes[i].c_str(), this);
-		connect(sortActions[i], &QAction::triggered, this, [this, i] ()
+		if (i == Film::Description || i == Film::Path || i == Film::PosterPath || i == Film::Synopsis)
+		{
+			++i;
+			continue;
+		}
+
+		sortActions[j] = new QAction(Film::NamesAttributes[i].c_str(), this);
+		connect(sortActions[j], &QAction::triggered, this, [this, i] ()
 		{
 			this->currentlyDisplayedFilms.sort([i] (const Film * lhs, const Film * rhs)
 			{return lhs->attributes.at(Film::NamesAttributes[i]) < rhs->attributes.at(Film::NamesAttributes[i]);});
 
 			emit displayListChanged();
 		});
+		++i, ++j;
 	}
 
 	aboutAction = new QAction("About filibre");
@@ -148,7 +155,7 @@ void MainWindow::createMenus()
 	{editMenu->setDisabled(!currentlySelectedFilm);});
 
 	sortMenu = menuBar()->addMenu("&Sort by");
-	for (size_t i = 0; i < Film::NumAttributes; ++i)
+	for (size_t i = 0; i < Film::NumAttributes - 4; ++i)
 	{
 		sortMenu->addAction(sortActions[i]);
 	}

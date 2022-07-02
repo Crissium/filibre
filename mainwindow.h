@@ -69,7 +69,7 @@ private:
 	QAction * externalPlayAction;
 	QAction * openPosterAction;
 
-	QAction * sortActions[Film::NumAttributes];
+	QAction * sortActions[Film::NumAttributes - 4];
 
 	QAction * aboutAction;
 	QAction * aboutQtAction;
