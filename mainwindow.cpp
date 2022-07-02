@@ -339,6 +339,12 @@ void MainWindow::closeEvent(QCloseEvent *event)
 	event->accept();
 }
 
+void MainWindow::resizeEvent(QResizeEvent * event)
+{
+	emit displayListChanged();
+	QMainWindow::resizeEvent(event);
+}
+
 void MainWindow::loadCollectionFromXml()
 {
 	try {

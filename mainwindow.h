@@ -5,6 +5,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QCloseEvent>
+#include <QResizeEvent>
 #include <QTreeView>
 #include <QStandardItemModel>
 #include <QGraphicsScene>
@@ -32,6 +33,7 @@ public:
 
 protected:
 	void closeEvent(QCloseEvent *event) override;
+	void resizeEvent(QResizeEvent * event) override;
 
 signals:
 	void collectionChanged();
