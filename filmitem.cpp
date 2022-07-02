@@ -13,6 +13,7 @@ FilmItem::FilmItem(Film * f, QGraphicsLayoutItem * parent, bool isLayout)
 	, film(f)
 	, poster(((film->attributes.at(Film::NamesAttributes[Film::PosterPath]).empty()) ? (&FallBackImage) : (new QImage(QImage(film->attributes.at(Film::NamesAttributes[Film::PosterPath]).c_str()).scaled(PosterWidth, PosterHeight, Qt::KeepAspectRatio)))))
 {
+	setFlag(ItemIsFocusable, false);
 }
 
 FilmItem::~FilmItem()
@@ -46,6 +47,14 @@ void FilmItem::mousePressEvent(QGraphicsSceneMouseEvent * event)
 	emit itemSelected(film);
 
 	QGraphicsItem::mousePressEvent(event);
+	update();
+}
+
+void FilmItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event)
+{
+	emit itemDoubleClicked(film);
+
+	QGraphicsItem::mouseDoubleClickEvent(event);
 	update();
 }
 

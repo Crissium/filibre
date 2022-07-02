@@ -261,10 +261,40 @@ void MainWindow::createCollectionView()
 	scene->addItem(display);
 
 	connect(display, &CollectionDisplay::itemSelected, this, &MainWindow::updateSelectedFilm);
+	connect(display, &CollectionDisplay::itemDoubleClicked, this, [this] (Film * f)
+	{
+		auto player = new MpvPlayerDialog(f->attributes.at(Film::NamesAttributes[Film::Path]), this);
+		player->show();
+	});
 
 	ui->collectionView->setScene(scene);
 	ui->collectionView->setMinimumSize(QSize(size().width() - 500, size().height()));
 	ui->collectionView->show();
+}
+
+void MainWindow::updateCollectionView()
+{
+	scene = new QGraphicsScene(ui->collectionView);
+
+	display = new CollectionDisplay(currentlyDisplayedFilms, size().width() - 500, scene);
+	scene->addItem(display);
+
+	connect(display, &CollectionDisplay::itemSelected, this, &MainWindow::updateSelectedFilm);
+	connect(display, &CollectionDisplay::itemDoubleClicked, this, [this] (Film * f)
+	{
+		auto player = new MpvPlayerDialog(f->attributes.at(Film::NamesAttributes[Film::Path]), this);
+		player->show();
+	});
+
+	ui->collectionView->setScene(scene);
+	ui->collectionView->setMinimumSize(QSize(size().width() - 500, size().height()));
+	ui->collectionView->show();
+}
+
+void MainWindow::updateSelectedFilm(Film * f)
+{
+	currentlySelectedFilm = f;
+	emit currentlySelectedFilmChanged();
 }
 
 QString MainWindow::infoOf(const Film * f) const
@@ -281,26 +311,6 @@ QString MainWindow::infoOf(const Film * f) const
 			.arg(f->attributes.at(Film::NamesAttributes[Film::Synopsis]).c_str())
 			.arg(f->attributes.at(Film::NamesAttributes[Film::Description]).c_str()))
 			: QString("None selected.");
-}
-
-void MainWindow::updateCollectionView()
-{
-	scene = new QGraphicsScene(ui->collectionView);
-
-	display = new CollectionDisplay(currentlyDisplayedFilms, size().width() - 500, scene);
-	scene->addItem(display);
-
-	connect(display, &CollectionDisplay::itemSelected, this, &MainWindow::updateSelectedFilm);
-
-	ui->collectionView->setScene(scene);
-	ui->collectionView->setMinimumSize(QSize(size().width() - 500, size().height()));
-	ui->collectionView->show();
-}
-
-void MainWindow::updateSelectedFilm(Film * f)
-{
-	currentlySelectedFilm = f;
-	emit currentlySelectedFilmChanged();
 }
 
 void MainWindow::updateInfoPanel()

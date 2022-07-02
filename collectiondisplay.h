@@ -15,6 +15,7 @@ public:
 
 signals:
 	void itemSelected(Film *);
+	void itemDoubleClicked(Film *);
 };
 
 #endif // COLLECTIONDISPLAY_H

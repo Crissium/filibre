@@ -33,10 +33,12 @@ public:
 
 protected:
 	void mousePressEvent(QGraphicsSceneMouseEvent * event) override;
+	void mouseDoubleClickEvent(QGraphicsSceneMouseEvent * event) override;
 	QSizeF sizeHint(Qt::SizeHint which, const QSizeF & constraint = QSizeF()) const override;
 
 signals:
 	void itemSelected(Film *);
+	void itemDoubleClicked(Film *);
 };
 
 #endif // FILMITEM_H

@@ -38,6 +38,7 @@ CollectionDisplay::CollectionDisplay(FilmList list, int areaWidth, QGraphicsScen
 			++subscript;
 
 			connect(item, &FilmItem::itemSelected, this, [this] (Film * f) {emit itemSelected(f);});
+			connect(item, &FilmItem::itemDoubleClicked, this, [this] (Film * f) {emit itemDoubleClicked(f);});
 		}
 	}
 
