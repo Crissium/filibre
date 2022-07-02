@@ -59,7 +59,16 @@ void MainWindow::createActions()
 		emit currentlySelectedFilmChanged();
 	});
 
-	exportAction = new QAction("&Export collection", this);
+	exportAction = new QAction("&Export inventory", this);
+	connect(exportAction, &QAction::triggered, this, [this] ()
+	{
+		auto htmlFileName = QFileDialog::getSaveFileName(this, "Export collection inventory to", QDir::homePath(), "HTML (*.html)");
+
+		if (!htmlFileName.isEmpty())
+		{
+			collection->writeToHtmlInventory(htmlFileName.toStdString());
+		}
+	});
 
 	quitAction = new QAction("&Quit", this);
 	connect(quitAction, &QAction::triggered, QApplication::instance(), &QApplication::quit);

@@ -1,6 +1,7 @@
 #include "filmcollection.h"
 #include <pugixml.hpp>
 #include <algorithm>
+#include <fstream>
 #include <iostream>
 
 FilmCollection::FilmCollection()
@@ -60,6 +61,33 @@ void FilmCollection::writeToXmlFile(const std::string &xmlFileName)
 
 	if (!doc.save_file(xmlFileName.c_str(), "\t", pugi::format_default, pugi::encoding_utf8))
 		throw "File saving error\n";
+}
+
+void FilmCollection::writeToHtmlInventory(const std::string & inventoryFileName)
+{
+	sort();
+
+	std::ofstream inventory(inventoryFileName);
+
+	inventory << "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<title>Film Collection Inventory</title>\n<style>\nbody {margin: 0 10%;font-family: serif;}\nh1 {text-align: center;font-family: serif;font-weight: bold;border-bottom: 1px solid sienna;margin-top: 30px;}\nh2 {text-align: center;font-family: serif;font-weight: bold;margin-top: 30px;font-size: 3em;}\n</style>\n</head>\n<body>\n<h1><br>Film Collection Inventory</h1>\n";
+
+	for (auto const & film : *this)
+	{
+		inventory << "<h2>" << film.attributes.at(Film::NamesAttributes[Film::Title]) << "</h2>\n"
+		<< "<img src=\"" << film.attributes.at(Film::NamesAttributes[Film::PosterPath]) << "\" alt=\"Poster\" align=\"right\">\n"
+		<< "<dl>\n" << "<dt>Director(s)</dt><dd>" << film.attributes.at(Film::NamesAttributes[Film::Director]) << "</dd>\n"
+		<< "<dt>Leading Actor(s)</dt><dd>" << film.attributes.at(Film::NamesAttributes[Film::Lead]) << "</dd>\n"
+		<< "<dt>Year</dt><dd>" << film.attributes.at(Film::NamesAttributes[Film::Year]) << "</dd>\n"
+		<< "<dt>Genre</dt><dd>" << film.attributes.at(Film::NamesAttributes[Film::Genre]) << "</dd>\n"
+		<< "<dt>Language</dt><dd>" << film.attributes.at(Film::NamesAttributes[Film::Language]) << "</dd>\n"
+		<< "<dt>Accolades</dt><dd>" << film.attributes.at(Film::NamesAttributes[Film::Accolades]) << "</dd>\n"
+		<< "</dl>\n"
+		<< "<h3>Synopsis</h3>\n<p>" << film.attributes.at(Film::NamesAttributes[Film::Synopsis]) << "</p>\n"
+		<< "<h3>Description</h3>\n<p>" << film.attributes.at(Film::NamesAttributes[Film::Description]) << "</p>\n";
+	}
+
+	inventory << "</body>\n</html>\n";
+	inventory.close();
 }
 
 std::set<std::string> FilmCollection::allValuesOfAttribute(int attr) const
