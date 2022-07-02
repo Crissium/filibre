@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MpvPlayerDialog</class>
+ <widget class="QDialog" name="MpvPlayerDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>691</width>
+    <height>564</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="MpvWidget" name="mpv"/>
+   </item>
+   <item>
+    <widget class="QPushButton" name="playButton">
+     <property name="text">
+      <string>Pause / Play</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QSlider" name="slider">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MpvWidget</class>
+   <extends>QOpenGLWidget</extends>
+   <header location="global">mpvwidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
