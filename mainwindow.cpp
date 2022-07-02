@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
 	createStatusBar();
 
 	connect(this, &MainWindow::displayListChanged, this, &MainWindow::updateCollectionView);
+	connect(this, &MainWindow::collectionChanged, this, &MainWindow::updateLeftPanel);
 }
 
 MainWindow::~MainWindow()
@@ -55,6 +56,17 @@ void MainWindow::createActions()
 	editMetadataAction = new QAction("&Edit metadata", this);
 
 	deleteItemAction = new QAction("&Delete item", this);
+	connect(deleteItemAction, &QAction::triggered, this, [this] ()
+	{
+		collection->remove(*currentlySelectedFilm);
+		currentlyDisplayedFilms = collection->all();
+
+		currentlySelectedFilm = nullptr;
+
+		emit collectionChanged();
+		emit currentlySelectedFilmChanged();
+		emit displayListChanged();
+	});
 
 	playAction = new QAction("&Play", this);
 
@@ -165,6 +177,48 @@ void MainWindow::createLeft()
 	ui->leftNavigationTree->setMaximumWidth(280);
 }
 
+void MainWindow::updateLeftPanel()
+{
+	leftList = new QStandardItemModel;
+	Director = leftList->invisibleRootItem();
+	for (size_t attr = Film::Title; attr < Film::NumAttributes; ++attr)
+	{
+		if (attr == Film::Title || attr == Film::Path || attr == Film::PosterPath || attr == Film::Description || attr == Film::Synopsis)
+			continue;
+		QStandardItem * thisAttr = new QStandardItem;
+		thisAttr->setText(tr(Film::NamesAttributes[attr].c_str()));
+		thisAttr->setEditable(false);
+		std::set<std::string> const typeAttr = collection->allValuesOfAttribute(attr);
+		for(auto const & typical : typeAttr)
+		{
+			QStandardItem * thisType = new QStandardItem;
+			thisType->setText(tr(typical.c_str()));
+			thisType->setEditable(false);
+			thisAttr->appendRow(thisType);
+		}
+		Director->appendRow(thisAttr);
+	}
+	ui->leftNavigationTree->setModel(leftList);
+
+	connect(ui->leftNavigationTree, &QTreeView::clicked, this, [this] (auto arg)
+	{
+		auto item = leftList->itemFromIndex(arg);
+
+		if (std::find(Film::NamesAttributes.cbegin(), Film::NamesAttributes.cend(), item->text().toStdString()) == Film::NamesAttributes.cend())
+		{
+			std::cout << "Damn it" << std::endl;
+			currentlySelectedFilm = nullptr;
+			currentlyDisplayedFilms = collection->filmsWithAttributeValue(item->parent()->text().toStdString(), item->text().toStdString());
+
+			emit displayListChanged();
+			emit currentlySelectedFilmChanged();
+		}
+	});
+
+	ui->leftNavigationTree->setMinimumWidth(280);
+	ui->leftNavigationTree->setMaximumWidth(280);
+}
+
 void MainWindow::createCollectionView()
 {
 	scene = new QGraphicsScene(ui->collectionView);
@@ -197,11 +251,6 @@ void MainWindow::updateSelectedFilm(Film * f)
 {
 	currentlySelectedFilm = f;
 	emit currentlySelectedFilmChanged();
-}
-
-void MainWindow::addItem()
-{
-
 }
 
 void MainWindow::readSettings()
@@ -299,3 +348,5 @@ void MainWindow::openExistingCollection()
 		}
 	}
 }
+
+
