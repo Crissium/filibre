@@ -56,6 +56,7 @@ private:
 	QAction * newCollectionAction;
 	QAction * openCollectionAction;
 	QAction * addItemAction;
+	QAction * showFavouritesAction;
 	QAction * exportAction;
 	QAction * quitAction;
 

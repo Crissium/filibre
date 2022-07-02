@@ -49,6 +49,16 @@ void MainWindow::createActions()
 
 	addItemAction = new QAction("&Add item", this);
 
+	showFavouritesAction = new QAction("Display &favourites");
+	connect(showFavouritesAction, &QAction::triggered, this, [this] ()
+	{
+		currentlyDisplayedFilms = collection->favourites();
+		emit displayListChanged();
+
+		currentlySelectedFilm = nullptr;
+		emit currentlySelectedFilmChanged();
+	});
+
 	exportAction = new QAction("&Export collection", this);
 
 	quitAction = new QAction("&Quit", this);
@@ -112,6 +122,7 @@ void MainWindow::createMenus()
 	fileMenu->addAction(newCollectionAction);
 	fileMenu->addAction(openCollectionAction);
 	fileMenu->addAction(addItemAction);
+	fileMenu->addAction(showFavouritesAction);
 	fileMenu->addAction(exportAction);
 	fileMenu->addAction(quitAction);
 
