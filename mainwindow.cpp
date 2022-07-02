@@ -62,7 +62,7 @@ void MainWindow::createActions()
 	exportAction = new QAction("&Export inventory", this);
 	connect(exportAction, &QAction::triggered, this, [this] ()
 	{
-		auto htmlFileName = QFileDialog::getSaveFileName(this, "Export collection inventory to", QDir::homePath(), "HTML (*.html)");
+		auto htmlFileName = QFileDialog::getSaveFileName(this, "Export collection inventory to", QDir::homePath() + "/inventory.html", "HTML (*.html)");
 
 		if (!htmlFileName.isEmpty())
 		{
