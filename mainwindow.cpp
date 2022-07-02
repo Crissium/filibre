@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "mpvplayerdialog.h"
 #include <QSettings>
 #include <QDebug>
 #include <QFileDialog>
@@ -69,6 +70,17 @@ void MainWindow::createActions()
 	});
 
 	playAction = new QAction("&Play", this);
+	connect(playAction, &QAction::triggered, this, [this] ()
+	{
+		auto player = new MpvPlayerDialog(currentlySelectedFilm->attributes.at(Film::NamesAttributes[Film::Path]), this);
+		player->show();
+	});
+
+	externalPlayAction = new QAction("Play with &external player");
+	connect(externalPlayAction, &QAction::triggered, this, [this] ()
+	{
+		QDesktopServices::openUrl(QUrl::fromLocalFile(this->currentlySelectedFilm->attributes.at(Film::NamesAttributes[Film::Path]).c_str()));
+	});
 
 	openPosterAction = new QAction("Open &poster", this);
 	connect(openPosterAction, &QAction::triggered, this, [this] ()
@@ -107,6 +119,7 @@ void MainWindow::createMenus()
 	editMenu->addAction(editMetadataAction);
 	editMenu->addAction(deleteItemAction);
 	editMenu->addAction(playAction);
+	editMenu->addAction(externalPlayAction);
 	editMenu->addAction(openPosterAction);
 
 	editMenu->setDisabled(true); // disable on startup

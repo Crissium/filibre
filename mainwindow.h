@@ -62,6 +62,7 @@ private:
 	QAction * editMetadataAction;
 	QAction * deleteItemAction;
 	QAction * playAction;
+	QAction * externalPlayAction;
 	QAction * openPosterAction;
 
 	QAction * sortActions[Film::NumAttributes];
