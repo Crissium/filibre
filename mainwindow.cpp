@@ -7,6 +7,9 @@
 #include <QMessageBox>
 #include <QDesktopServices>
 #include <QUrl>
+#include <algorithm>
+#include <iostream>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
@@ -22,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 	createLeft();
 	createCollectionView();
+
+	connect(this, &MainWindow::displayListChanged, this, &MainWindow::updateCollectionView);
 }
 
 MainWindow::~MainWindow()
@@ -63,6 +68,8 @@ void MainWindow::createActions()
 		{
 			this->currentlyDisplayedFilms.sort([i] (const Film * lhs, const Film * rhs)
 			{return lhs->attributes.at(Film::NamesAttributes[i]) < rhs->attributes.at(Film::NamesAttributes[i]);});
+
+			emit displayListChanged();
 		});
 	}
 
@@ -105,7 +112,7 @@ void MainWindow::createLeft()
 	Director = leftList->invisibleRootItem();
 	for (size_t attr = Film::Title; attr < Film::NumAttributes; ++attr)
 	{
-		if (attr == Film::Path || attr == Film::PosterPath || attr == Film::Description || attr == Film::Synopsis)
+		if (attr == Film::Title || attr == Film::Path || attr == Film::PosterPath || attr == Film::Description || attr == Film::Synopsis)
 			continue;
 		QStandardItem * thisAttr = new QStandardItem;
 		thisAttr->setText(tr(Film::NamesAttributes[attr].c_str()));
@@ -121,6 +128,22 @@ void MainWindow::createLeft()
 		Director->appendRow(thisAttr);
 	}
 	ui->leftNavigationTree->setModel(leftList);
+
+	connect(ui->leftNavigationTree, &QTreeView::clicked, this, [this] (auto arg)
+	{
+		auto item = leftList->itemFromIndex(arg);
+
+		if (std::find(Film::NamesAttributes.cbegin(), Film::NamesAttributes.cend(), item->text().toStdString()) == Film::NamesAttributes.cend())
+		{
+			std::cout << "Damn it" << std::endl;
+			currentlySelectedFilm = nullptr;
+			currentlyDisplayedFilms = collection->filmsWithAttributeValue(item->parent()->text().toStdString(), item->text().toStdString());
+
+			emit displayListChanged();
+			emit currentlySelectedFilmChanged();
+		}
+	});
+
 	ui->leftNavigationTree->setMinimumWidth(280);
 	ui->leftNavigationTree->setMaximumWidth(280);
 }
@@ -131,9 +154,32 @@ void MainWindow::createCollectionView()
 
 	display = new CollectionDisplay(currentlyDisplayedFilms, size().width() - 500, scene);
 	scene->addItem(display);
+
+	connect(display, &CollectionDisplay::itemSelected, this, &MainWindow::updateSelectedFilm);
+
 	ui->collectionView->setScene(scene);
 	ui->collectionView->setMinimumSize(QSize(size().width() - 500, size().height()));
 	ui->collectionView->show();
+}
+
+void MainWindow::updateCollectionView()
+{
+	scene = new QGraphicsScene(ui->collectionView);
+
+	display = new CollectionDisplay(currentlyDisplayedFilms, size().width() - 500, scene);
+	scene->addItem(display);
+
+	connect(display, &CollectionDisplay::itemSelected, this, &MainWindow::updateSelectedFilm);
+
+	ui->collectionView->setScene(scene);
+	ui->collectionView->setMinimumSize(QSize(size().width() - 500, size().height()));
+	ui->collectionView->show();
+}
+
+void MainWindow::updateSelectedFilm(Film * f)
+{
+	currentlySelectedFilm = f;
+	emit currentlySelectedFilmChanged();
 }
 
 void MainWindow::readSettings()

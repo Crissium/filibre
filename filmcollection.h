@@ -35,6 +35,7 @@ public:
 
 	std::set<std::string> allValuesOfAttribute(/*Film::Attribute*/int) const;
 	FilmList filmsWithAttributeValue(Film::Attribute, const std::string & value);
+	FilmList filmsWithAttributeValue(const std::string & attr, const std::string & value);
 	FilmList favourites();
 	FilmList all();
 };

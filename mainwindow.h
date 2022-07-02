@@ -32,9 +32,15 @@ public:
 protected:
 	void closeEvent(QCloseEvent *event) override;
 
+signals:
+	void displayListChanged();
+	void currentlySelectedFilmChanged();
+
 private slots:
 	void createNewCollection();
 	void openExistingCollection();
+	void updateCollectionView();
+	void updateSelectedFilm(Film *);
 
 private:
 	Ui::MainWindow *ui;

@@ -85,6 +85,19 @@ FilmList FilmCollection::filmsWithAttributeValue(Film::Attribute attr, const std
 	return l;
 }
 
+FilmList FilmCollection::filmsWithAttributeValue(const std::string & attr, const std::string & value)
+{
+	FilmList l;
+
+	for (auto & film : *this)
+	{
+		if (film.attributes.at(attr) == value)
+			l.push_back(&film);
+	}
+
+	return l;
+}
+
 FilmList FilmCollection::favourites()
 {
 	FilmList l;
