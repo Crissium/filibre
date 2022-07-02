@@ -9,6 +9,7 @@
 #include <QStandardItemModel>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QLabel>
 #include "filmcollection.h"
 #include "collectiondisplay.h"
 
@@ -41,6 +42,7 @@ private slots:
 	void openExistingCollection();
 	void updateCollectionView();
 	void updateSelectedFilm(Film *);
+	void addItem();
 
 private:
 	Ui::MainWindow *ui;
@@ -68,6 +70,9 @@ private:
 
 	void createActions();
 	void createMenus();
+
+	QLabel * selectionLabel;
+	void createStatusBar();
 
 	QStandardItemModel * leftList;
 	QStandardItem * Director;

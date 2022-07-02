@@ -26,6 +26,8 @@ MainWindow::MainWindow(QWidget *parent)
 	createLeft();
 	createCollectionView();
 
+	createStatusBar();
+
 	connect(this, &MainWindow::displayListChanged, this, &MainWindow::updateCollectionView);
 }
 
@@ -106,6 +108,17 @@ void MainWindow::createMenus()
 	helpMenu->addAction(aboutQtAction);
 }
 
+void MainWindow::createStatusBar()
+{
+	selectionLabel = new QLabel("Selected none");
+	statusBar()->addPermanentWidget(selectionLabel);
+
+	connect(this, &MainWindow::currentlySelectedFilmChanged, this, [this] ()
+	{
+		currentlySelectedFilm ? (selectionLabel->setText(QString("Selected ") + currentlySelectedFilm->attributes.at(Film::NamesAttributes[Film::Title]).c_str())) : (selectionLabel->setText("Selected none"));
+	});
+}
+
 void MainWindow::createLeft()
 {
 	leftList = new QStandardItemModel;
@@ -180,6 +193,11 @@ void MainWindow::updateSelectedFilm(Film * f)
 {
 	currentlySelectedFilm = f;
 	emit currentlySelectedFilmChanged();
+}
+
+void MainWindow::addItem()
+{
+
 }
 
 void MainWindow::readSettings()
