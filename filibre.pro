@@ -25,7 +25,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
 	mpvplayerdialog.cpp \
-	mpvwidget.cpp
+	mpvwidget.cpp \
+	runguard.cpp
 
 HEADERS += \
 	collectiondisplay.h \
@@ -35,7 +36,8 @@ HEADERS += \
     mainwindow.h \
 	mpvplayerdialog.h \
 	mpvwidget.h \
-	qthelper.h
+	qthelper.h \
+	runguard.h
 
 FORMS += \
     mainwindow.ui \
