@@ -46,6 +46,7 @@ private slots:
 	void updateLeftPanel();
 	void updateCollectionView();
 	void updateSelectedFilm(Film *);
+	void updateInfoPanel();
 
 private:
 	Ui::MainWindow *ui;
@@ -86,6 +87,8 @@ private:
 	QGraphicsScene * scene;
 	CollectionDisplay * display;
 	void createCollectionView();
+
+	QString infoOf(const Film *) const;
 
 	void readSettings();
 	void writeSettings();

@@ -26,11 +26,12 @@ MainWindow::MainWindow(QWidget *parent)
 
 	createLeft();
 	createCollectionView();
-
+	updateInfoPanel();
 	createStatusBar();
 
 	connect(this, &MainWindow::displayListChanged, this, &MainWindow::updateCollectionView);
 	connect(this, &MainWindow::collectionChanged, this, &MainWindow::updateLeftPanel);
+	connect(this, &MainWindow::currentlySelectedFilmChanged, this, &MainWindow::updateInfoPanel);
 }
 
 MainWindow::~MainWindow()
@@ -266,6 +267,22 @@ void MainWindow::createCollectionView()
 	ui->collectionView->show();
 }
 
+QString MainWindow::infoOf(const Film * f) const
+{
+	return f ? (QString("%1 (%2)\n\nDirector(s): %3\n\nLeading Actor(s): %4\n\nGenre: %5\n\nLanguage: %6\n\nRating: %7\n\nAccolades: %8\n\nSynopsis: %9\n\nDescription: %10")
+			   .arg(f->attributes.at(Film::NamesAttributes[Film::Title]).c_str())
+			.arg(f->attributes.at(Film::NamesAttributes[Film::Year]).c_str())
+			.arg(f->attributes.at(Film::NamesAttributes[Film::Director]).c_str())
+			.arg(f->attributes.at(Film::NamesAttributes[Film::Lead]).c_str())
+			.arg(f->attributes.at(Film::NamesAttributes[Film::Genre]).c_str())
+			.arg(f->attributes.at(Film::NamesAttributes[Film::Language]).c_str())
+			.arg(f->attributes.at(Film::NamesAttributes[Film::Rating]).c_str())
+			.arg(f->attributes.at(Film::NamesAttributes[Film::Accolades]).c_str())
+			.arg(f->attributes.at(Film::NamesAttributes[Film::Synopsis]).c_str())
+			.arg(f->attributes.at(Film::NamesAttributes[Film::Description]).c_str()))
+			: QString("None selected.");
+}
+
 void MainWindow::updateCollectionView()
 {
 	scene = new QGraphicsScene(ui->collectionView);
@@ -284,6 +301,11 @@ void MainWindow::updateSelectedFilm(Film * f)
 {
 	currentlySelectedFilm = f;
 	emit currentlySelectedFilmChanged();
+}
+
+void MainWindow::updateInfoPanel()
+{
+	ui->infoPanel->setPlainText(infoOf(currentlySelectedFilm));
 }
 
 void MainWindow::readSettings()
