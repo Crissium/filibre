@@ -1,14 +1,11 @@
 #include "mpvplayerdialog.h"
 #include "ui_mpvplayerdialog.h"
 
-const QIcon MpvPlayerDialog::MpvIcon(":/images/mpv.png");
-
 MpvPlayerDialog::MpvPlayerDialog(const std::string & videoFileName, QWidget *parent) :
 	QDialog(parent),
 	ui(new Ui::MpvPlayerDialog)
 {
 	ui->setupUi(this);
-	setWindowIcon(MpvIcon);
 
 	ui->mpv->command(QStringList() << "loadfile" << videoFileName.c_str());
 

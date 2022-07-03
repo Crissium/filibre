@@ -14,7 +14,6 @@ class MpvPlayerDialog : public QDialog
 	Q_OBJECT
 
 public:
-	static const QIcon MpvIcon;
 	explicit MpvPlayerDialog(const std::string & videoFileName, QWidget *parent = nullptr);
 	~MpvPlayerDialog();
 
