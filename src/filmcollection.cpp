@@ -2,6 +2,8 @@
 #include <pugixml.hpp>
 #include <algorithm>
 #include <fstream>
+#include <sstream>
+#include <vector>
 #include <iostream>
 
 FilmCollection::FilmCollection()
@@ -120,6 +122,40 @@ FilmList FilmCollection::filmsWithAttributeValue(const std::string & attr, const
 	for (auto & film : *this)
 	{
 		if (film.attributes.at(attr) == value)
+			l.push_back(&film);
+	}
+
+	return l;
+}
+
+FilmList FilmCollection::searchFor(Film::Attribute attr, const std::string & value)
+{
+	std::istringstream input(value);
+
+
+	std::vector<std::string> words; // split value into separate words
+	{
+		std::string word;
+		while (input >> word)
+		{
+			words.push_back(word);
+		}
+	}
+
+	FilmList l;
+
+	for (auto & film : *this)
+	{
+		bool filmContainsWords = true;
+		for (auto const & word : words)
+		{
+			if (film.attributes.at(Film::NamesAttributes[attr]).find(word) == std::string::npos)
+			{
+				filmContainsWords = false;
+				break;
+			}
+		}
+		if (filmContainsWords)
 			l.push_back(&film);
 	}
 
