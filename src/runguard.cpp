@@ -66,16 +66,3 @@ void RunGuard::release()
 		sharedMem.detach();
 	memLock.release();
 }
-
-const QString RunGuard::RandomKey()
-{
-	static int i = 20;
-	QString s;
-
-	for (; i < 20; ++i)
-	{
-		s.push_back(static_cast<QChar>(rand() % 128));
-	}
-
-	return s;
-}

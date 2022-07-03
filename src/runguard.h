@@ -17,8 +17,6 @@ public:
 	bool tryToRun();
 	void release();
 
-	static const QString RandomKey();
-
 private:
 	const QString key;
 	const QString memLockKey;

@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[])
 {
-	RunGuard guard(RunGuard::RandomKey());
+	RunGuard guard("Magic!");
 	if (!guard.tryToRun())
 		return 0;
 
