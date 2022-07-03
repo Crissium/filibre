@@ -395,6 +395,11 @@ void MainWindow::loadCollectionFromXml()
 	}
 
 	currentlyDisplayedFilms = collection->all();
+	currentlySelectedFilm = nullptr;
+
+	emit currentlySelectedFilmChanged();
+	emit displayListChanged();
+	emit collectionChanged();
 }
 
 void MainWindow::createNewCollection()
@@ -408,6 +413,10 @@ void MainWindow::createNewCollection()
 	currentlyDisplayedFilms.clear();
 
 	collection = new FilmCollection;
+
+	emit currentlySelectedFilmChanged();
+	emit displayListChanged();
+	emit collectionChanged();
 }
 
 void MainWindow::openExistingCollection()
