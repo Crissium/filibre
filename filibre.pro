@@ -9,7 +9,9 @@ CONFIG += optimize_full
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 windows {
-	LIBS += -lpugixml -lmpv
+	INCLUDEPATH += 3rdparty/mpv/include
+	LIBS += -L"3rdparty/mpv/lib" -lmpv
+	LIBS += -lpugixml
 }
 
 unix {
@@ -17,31 +19,8 @@ unix {
 	PKGCONFIG += pugixml mpv
 }
 
-SOURCES += \
-	collectiondisplay.cpp \
-    film.cpp \
-    filmcollection.cpp \
-	filmitem.cpp \
-    main.cpp \
-    mainwindow.cpp \
-	mpvplayerdialog.cpp \
-	mpvwidget.cpp \
-	runguard.cpp
-
-HEADERS += \
-	collectiondisplay.h \
-    film.h \
-    filmcollection.h \
-	filmitem.h \
-    mainwindow.h \
-	mpvplayerdialog.h \
-	mpvwidget.h \
-	qthelper.h \
-	runguard.h
-
-FORMS += \
-    mainwindow.ui \
-    mpvplayerdialog.ui
+include($$PWD/src/src.pri)
+include($$PWD/resources/resources.pri)
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -51,5 +30,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
 	COPYING
 
-RESOURCES += \
-	res.qrc
