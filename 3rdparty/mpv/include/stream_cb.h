@@ -230,8 +230,8 @@ typedef int (*mpv_stream_cb_open_ro_fn)(void *user_data, char *uri,
  *                  callback.
  * @return error code
  */
-MPV_EXPORT int mpv_stream_cb_add_ro(mpv_handle *ctx, const char *protocol, void *user_data,
-                                    mpv_stream_cb_open_ro_fn open_fn);
+int mpv_stream_cb_add_ro(mpv_handle *ctx, const char *protocol, void *user_data,
+                         mpv_stream_cb_open_ro_fn open_fn);
 
 #ifdef __cplusplus
 }
