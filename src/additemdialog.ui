@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddItemDialog</class>
+ <widget class="QDialog" name="AddItemDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>873</width>
+    <height>586</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="4">
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>Language</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="5">
+    <widget class="QLineEdit" name="languageEdit"/>
+   </item>
+   <item row="2" column="7">
+    <widget class="QPushButton" name="filmSelect">
+     <property name="text">
+      <string>Select</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Lead(s)</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3">
+    <widget class="QLineEdit" name="leadEdit"/>
+   </item>
+   <item row="1" column="4">
+    <widget class="QLabel" name="label_6">
+     <property name="text">
+      <string>Genre</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="6">
+    <widget class="QLabel" name="label_8">
+     <property name="text">
+      <string>Accolades</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Year</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="7">
+    <widget class="QLineEdit" name="accoladesEdit"/>
+   </item>
+   <item row="7" column="0">
+    <widget class="QCheckBox" name="favouriteCheck">
+     <property name="text">
+      <string>Favourite</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="6">
+    <widget class="QLabel" name="label_7">
+     <property name="text">
+      <string>Rating</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="7">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="5" colspan="3">
+    <widget class="QPlainTextEdit" name="descriptionEdit"/>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="titleEdit"/>
+   </item>
+   <item row="4" column="5" rowspan="2">
+    <widget class="QLabel" name="label_12">
+     <property name="text">
+      <string>Description</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="7">
+    <widget class="QLineEdit" name="ratingEdit">
+     <property name="inputMask">
+      <string>9</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Title</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="5">
+    <widget class="QLineEdit" name="genreEdit"/>
+   </item>
+   <item row="4" column="0" colspan="2">
+    <widget class="QLabel" name="label_11">
+     <property name="text">
+      <string>Synopsis</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0" colspan="4">
+    <widget class="QPlainTextEdit" name="synopsisEdit"/>
+   </item>
+   <item row="3" column="7">
+    <widget class="QPushButton" name="posterSelect">
+     <property name="text">
+      <string>Select</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_9">
+     <property name="text">
+      <string>Film file</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="directorEdit"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_10">
+     <property name="text">
+      <string>Poster file</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" colspan="6">
+    <widget class="QLineEdit" name="filmEdit"/>
+   </item>
+   <item row="1" column="3">
+    <widget class="QLineEdit" name="yearEdit">
+     <property name="inputMask">
+      <string>9999</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1" colspan="6">
+    <widget class="QLineEdit" name="posterEdit"/>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Director(s)</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -3,6 +3,7 @@
 #include "mpvplayerdialog.h"
 #include "searchdialog.h"
 #include "editmetadatadialog.h"
+#include "additemdialog.h"
 #include <QSettings>
 #include <QFileDialog>
 #include <QDir>
@@ -50,6 +51,22 @@ void MainWindow::createActions()
 	connect(openCollectionAction, &QAction::triggered, this, &MainWindow::openExistingCollection);
 
 	addItemAction = new QAction("&Add item", this);
+	connect(addItemAction, &QAction::triggered, this, [this] ()
+	{
+		auto addDialog = new AddItemDialog(collection, this);
+		addDialog->show();
+
+		connect(addDialog, &AddItemDialog::filmAdded, this, [this] ()
+		{
+			emit collectionChanged();
+
+			currentlySelectedFilm = &*(collection->rbegin());
+			emit currentlySelectedFilmChanged();
+
+			currentlyDisplayedFilms.push_front(currentlySelectedFilm);
+			emit displayListChanged();
+		});
+	});
 
 	showFavouritesAction = new QAction("Display &favourites");
 	connect(showFavouritesAction, &QAction::triggered, this, [this] ()
