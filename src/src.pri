@@ -7,7 +7,8 @@ SOURCES += \
 	$$PWD/mainwindow.cpp \
 	$$PWD/mpvplayerdialog.cpp \
 	$$PWD/mpvwidget.cpp \
-	$$PWD/runguard.cpp
+	$$PWD/runguard.cpp \
+	$$PWD/searchdialog.cpp
 
 HEADERS += \
 	$$PWD/collectiondisplay.h \
@@ -18,9 +19,11 @@ HEADERS += \
 	$$PWD/mpvplayerdialog.h \
 	$$PWD/mpvwidget.h \
 	$$PWD/qthelper.h \
-	$$PWD/runguard.h
+	$$PWD/runguard.h \
+	$$PWD/searchdialog.h
 
 FORMS += \
 	$$PWD/mainwindow.ui \
-	$$PWD/mpvplayerdialog.ui
+	$$PWD/mpvplayerdialog.ui \
+	$$PWD/searchdialog.ui
 

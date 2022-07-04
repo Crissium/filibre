@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "mpvplayerdialog.h"
+#include "searchdialog.h"
 #include <QSettings>
 #include <QDebug>
 #include <QFileDialog>
@@ -58,6 +59,21 @@ void MainWindow::createActions()
 
 		currentlySelectedFilm = nullptr;
 		emit currentlySelectedFilmChanged();
+	});
+
+	searchAction = new QAction("&Search");
+	connect(searchAction, &QAction::triggered, this, [this] ()
+	{
+		auto searchDialog = new SearchDialog(collection, this);
+		searchDialog->show();
+		connect(searchDialog, &SearchDialog::searchResult, this, [this] (const FilmList & l)
+		{
+			currentlyDisplayedFilms = l;
+			emit this->displayListChanged();
+
+			currentlySelectedFilm = nullptr;
+			emit this->currentlySelectedFilmChanged();
+		});
 	});
 
 	exportAction = new QAction("&Export inventory", this);
@@ -140,6 +156,7 @@ void MainWindow::createMenus()
 	fileMenu->addAction(openCollectionAction);
 	fileMenu->addAction(addItemAction);
 	fileMenu->addAction(showFavouritesAction);
+	fileMenu->addAction(searchAction);
 	fileMenu->addAction(exportAction);
 	fileMenu->addAction(quitAction);
 
