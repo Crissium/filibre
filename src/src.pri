@@ -1,5 +1,6 @@
 SOURCES += \
 	$$PWD/collectiondisplay.cpp \
+	$$PWD/editmetadatadialog.cpp \
 	$$PWD/film.cpp \
 	$$PWD/filmcollection.cpp \
 	$$PWD/filmitem.cpp \
@@ -12,6 +13,7 @@ SOURCES += \
 
 HEADERS += \
 	$$PWD/collectiondisplay.h \
+	$$PWD/editmetadatadialog.h \
 	$$PWD/film.h \
 	$$PWD/filmcollection.h \
 	$$PWD/filmitem.h \
@@ -23,6 +25,7 @@ HEADERS += \
 	$$PWD/searchdialog.h
 
 FORMS += \
+	$$PWD/editmetadatadialog.ui \
 	$$PWD/mainwindow.ui \
 	$$PWD/mpvplayerdialog.ui \
 	$$PWD/searchdialog.ui

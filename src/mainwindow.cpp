@@ -2,8 +2,8 @@
 #include "ui_mainwindow.h"
 #include "mpvplayerdialog.h"
 #include "searchdialog.h"
+#include "editmetadatadialog.h"
 #include <QSettings>
-#include <QDebug>
 #include <QFileDialog>
 #include <QDir>
 #include <QMessageBox>
@@ -91,6 +91,16 @@ void MainWindow::createActions()
 	connect(quitAction, &QAction::triggered, QApplication::instance(), &QApplication::quit);
 
 	editMetadataAction = new QAction("&Edit metadata", this);
+	connect(editMetadataAction, &QAction::triggered, this, [this] ()
+	{
+		auto editDialog = new EditMetadataDialog(currentlySelectedFilm, this);
+		editDialog->show();
+		connect(editDialog, &EditMetadataDialog::filmEdited, this, [this] (const Film f)
+		{
+			*currentlySelectedFilm = f;
+			emit currentlySelectedFilmChanged();
+		});
+	});
 
 	deleteItemAction = new QAction("&Delete item", this);
 	connect(deleteItemAction, &QAction::triggered, this, [this] ()
