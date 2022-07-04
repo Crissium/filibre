@@ -160,6 +160,14 @@ FilmList FilmCollection::searchFor(Film::Attribute attr, const std::string & val
 	return l;
 }
 
+FilmList FilmCollection::searchFor(const std::string & attribute, const std::string value)
+{
+	size_t indexAttribute = Film::Title;
+	while (Film::NamesAttributes[indexAttribute] != attribute)
+		indexAttribute++;
+	return searchFor((Film::Attribute) indexAttribute, value);
+}
+
 FilmList FilmCollection::favourites()
 {
 	FilmList l;

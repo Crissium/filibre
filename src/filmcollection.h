@@ -106,6 +106,7 @@ public:
 	FilmList filmsWithAttributeValue(Film::Attribute, const std::string & value);
 	FilmList filmsWithAttributeValue(const std::string & attr, const std::string & value);
 	FilmList searchFor(Film::Attribute, const std::string & value);
+	FilmList searchFor(const std::string & attribute, const std::string value);
 	FilmList favourites();
 	FilmList all();
 };
