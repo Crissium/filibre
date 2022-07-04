@@ -146,17 +146,15 @@ FilmList FilmCollection::searchFor(Film::Attribute attr, const std::string & val
 
 	for (auto & film : *this)
 	{
-		bool filmContainsWords = true;
 		for (auto const & word : words)
 		{
 			if (film.attributes.at(Film::NamesAttributes[attr]).find(word) == std::string::npos)
 			{
-				filmContainsWords = false;
 				break;
 			}
 		}
-		if (filmContainsWords)
-			l.push_back(&film);
+
+		l.push_back(&film);
 	}
 
 	return l;
