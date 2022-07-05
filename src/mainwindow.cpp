@@ -93,14 +93,25 @@ void MainWindow::createActions()
 		});
 	});
 
-	exportAction = new QAction("&Export inventory", this);
-	connect(exportAction, &QAction::triggered, this, [this] ()
+	exportHtmlAction = new QAction("&Export inventory", this);
+	connect(exportHtmlAction, &QAction::triggered, this, [this] ()
 	{
 		auto htmlFileName = QFileDialog::getSaveFileName(this, "Export collection inventory to", QDir::homePath() + "/inventory.html", "HTML (*.html)");
 
 		if (!htmlFileName.isEmpty())
 		{
 			collection->writeToHtmlInventory(htmlFileName.toStdString());
+		}
+	});
+
+	exportCsvAction = new QAction("Export &CSV", this);
+	connect(exportCsvAction, &QAction::triggered, this, [this] ()
+	{
+		auto csvFileName = QFileDialog::getSaveFileName(this, "Export CSV to", QDir::homePath() + "/inventory.csv", "CSV (*.csv)");
+
+		if (!csvFileName.isEmpty())
+		{
+			collection->writeToCsvFile(csvFileName.toStdString());
 		}
 	});
 
@@ -184,7 +195,8 @@ void MainWindow::createMenus()
 	fileMenu->addAction(addItemAction);
 	fileMenu->addAction(showFavouritesAction);
 	fileMenu->addAction(searchAction);
-	fileMenu->addAction(exportAction);
+	fileMenu->addAction(exportHtmlAction);
+	fileMenu->addAction(exportCsvAction);
 	fileMenu->addAction(quitAction);
 
 	editMenu = menuBar()->addMenu("&Edit");

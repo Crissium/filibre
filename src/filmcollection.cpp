@@ -92,6 +92,30 @@ void FilmCollection::writeToHtmlInventory(const std::string & inventoryFileName)
 	inventory.close();
 }
 
+void FilmCollection::writeToCsvFile(const std::string & csvFileName)
+{
+	sort();
+
+	std::ofstream csv(csvFileName);
+
+	for (size_t i = Film::Title; i < Film::NumAttributes; ++i)
+	{
+		if (i == Film::PosterPath || i == Film::Path || i == Film::Synopsis || i == Film::Description)
+			continue;
+		csv << Film::NamesAttributes[i] << ",\n"[i == Film::NumAttributes - 1];
+	}
+
+	for (auto const & film : *this)
+	{
+		for (size_t i = Film::Title; i < Film::NumAttributes; ++i)
+		{
+			if (i == Film::PosterPath || i == Film::Path || i == Film::Synopsis || i == Film::Description)
+				continue;
+			csv << film.attributes.at(Film::NamesAttributes[i]) << ",\n"[i == Film::NumAttributes - 1];
+		}
+	}
+}
+
 std::set<std::string> FilmCollection::allValuesOfAttribute(int attr) const
 {
 	std::set<std::string> valueSet;

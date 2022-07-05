@@ -101,6 +101,7 @@ public:
 
 	void writeToXmlFile(const std::string & xmlFileName);
 	void writeToHtmlInventory(const std::string & inventoryFileName);
+	void writeToCsvFile(const std::string & csvFileName);
 
 	std::set<std::string> allValuesOfAttribute(/*Film::Attribute*/int) const;
 	FilmList filmsWithAttributeValue(Film::Attribute, const std::string & value);
