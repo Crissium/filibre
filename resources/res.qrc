@@ -2,5 +2,6 @@
     <qresource prefix="/images">
         <file>film-image-fallback.png</file>
         <file>mpv.png</file>
+        <file>splash.png</file>
     </qresource>
 </RCC>
