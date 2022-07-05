@@ -114,6 +114,8 @@ void FilmCollection::writeToCsvFile(const std::string & csvFileName)
 			csv << film.attributes.at(Film::NamesAttributes[i]) << ",\n"[i == Film::NumAttributes - 1];
 		}
 	}
+
+	csv.close();
 }
 
 std::set<std::string> FilmCollection::allValuesOfAttribute(int attr) const
