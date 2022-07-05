@@ -14,8 +14,7 @@ int main(int argc, char *argv[])
 
 	time_t start = time(nullptr);
 
-	QPixmap splashPic(":/images/splash.png");
-	QSplashScreen splash(splashPic);
+	QSplashScreen splash(QPixmap(":/images/splash.png"));
 	splash.show();
 
 	while (time(nullptr) - start < 1);
