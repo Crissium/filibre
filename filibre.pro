@@ -28,5 +28,6 @@ else: unix:!android: target.path = /usr/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-	COPYING
+	COPYING \
+	README.md
 
