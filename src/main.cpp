@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "runguard.h"
-#include <ctime>
+
 #include <QApplication>
 #include <QSplashScreen>
 
@@ -12,12 +12,8 @@ int main(int argc, char *argv[])
 
 	QApplication a(argc, argv);
 
-	time_t start = time(nullptr);
-
 	QSplashScreen splash(QPixmap(":/images/splash.png"));
 	splash.show();
-
-	while (time(nullptr) - start < 1);
 
 	MainWindow w;
 	w.show();
