@@ -68,10 +68,20 @@ void MainWindow::createActions()
 		});
 	});
 
-	showFavouritesAction = new QAction("Display &favourites");
+	showFavouritesAction = new QAction("Display &favourites", this);
 	connect(showFavouritesAction, &QAction::triggered, this, [this] ()
 	{
 		currentlyDisplayedFilms = collection->favourites();
+		emit displayListChanged();
+
+		currentlySelectedFilm = nullptr;
+		emit currentlySelectedFilmChanged();
+	});
+
+	showAllAction = new QAction("Display &all", this);
+	connect(showAllAction, &QAction::triggered, this, [this] ()
+	{
+		currentlyDisplayedFilms = collection->all();
 		emit displayListChanged();
 
 		currentlySelectedFilm = nullptr;
@@ -194,6 +204,7 @@ void MainWindow::createMenus()
 	fileMenu->addAction(openCollectionAction);
 	fileMenu->addAction(addItemAction);
 	fileMenu->addAction(showFavouritesAction);
+	fileMenu->addAction(showAllAction);
 	fileMenu->addAction(searchAction);
 	fileMenu->addAction(exportHtmlAction);
 	fileMenu->addAction(exportCsvAction);
@@ -261,7 +272,6 @@ void MainWindow::createLeft()
 
 		if (std::find(Film::NamesAttributes.cbegin(), Film::NamesAttributes.cend(), item->text().toStdString()) == Film::NamesAttributes.cend())
 		{
-			std::cout << "Damn it" << std::endl;
 			currentlySelectedFilm = nullptr;
 			currentlyDisplayedFilms = collection->filmsWithAttributeValue(item->parent()->text().toStdString(), item->text().toStdString());
 
@@ -303,7 +313,6 @@ void MainWindow::updateLeftPanel()
 
 		if (std::find(Film::NamesAttributes.cbegin(), Film::NamesAttributes.cend(), item->text().toStdString()) == Film::NamesAttributes.cend())
 		{
-			std::cout << "Damn it" << std::endl;
 			currentlySelectedFilm = nullptr;
 			currentlyDisplayedFilms = collection->filmsWithAttributeValue(item->parent()->text().toStdString(), item->text().toStdString());
 
@@ -331,7 +340,6 @@ void MainWindow::createCollectionView()
 	});
 
 	ui->collectionView->setScene(scene);
-	ui->collectionView->setMinimumSize(QSize(size().width() - 500, size().height()));
 	ui->collectionView->show();
 }
 
@@ -350,7 +358,6 @@ void MainWindow::updateCollectionView()
 	});
 
 	ui->collectionView->setScene(scene);
-	ui->collectionView->setMinimumSize(QSize(size().width() - 500, size().height()));
 	ui->collectionView->show();
 }
 
