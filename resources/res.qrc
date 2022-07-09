@@ -3,5 +3,6 @@
         <file>film-image-fallback.png</file>
         <file>mpv.png</file>
         <file>splash.png</file>
+        <file>icon.ico</file>
     </qresource>
 </RCC>

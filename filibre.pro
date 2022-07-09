@@ -29,5 +29,7 @@ else: unix:!android: target.path = /usr/bin
 
 DISTFILES += \
 	COPYING \
-	README.md
+	README.md \
+	icon.ico
 
+RC_ICONS += icon.ico
