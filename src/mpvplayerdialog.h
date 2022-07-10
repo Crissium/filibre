@@ -1,7 +1,6 @@
 #ifndef MPVPLAYERDIALOG_H
 #define MPVPLAYERDIALOG_H
 
-#include <QIcon>
 #include <QDialog>
 #include <string>
 
