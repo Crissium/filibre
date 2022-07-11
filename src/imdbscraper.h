@@ -6,7 +6,7 @@
 #elif defined(Q_OS_LINUX)
 #include <curl/curl.h>
 #endif
-#include <curl/curl.h>
+
 #include <string>
 
 struct ScrapedData
