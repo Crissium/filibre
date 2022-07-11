@@ -1,11 +1,5 @@
 #include "imdbscraper.h"
-
-#ifdef Q_OS_WIN
-#include <json.hpp>
-#elif defined(Q_OS_LINUX)
 #include <nlohmann/json.hpp>
-#endif
-
 #include <cmath>
 
 std::string ImdbScraper::ApiKey("k_6z1a4g8g");
