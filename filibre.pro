@@ -10,8 +10,11 @@ CONFIG += optimize_full
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 windows {
 	INCLUDEPATH += 3rdparty/mpv/include
+	INCLUDEPATH += 3rdparty/curl/include
+	INCLUDEPATH += 3rdparty/nlohmann/include
 	LIBS += -L"3rdparty/mpv/lib" -lmpv
-	LIBS += -lpugixml -lcurl
+	LIBS += -L"3rdparty/curl/lib" -lcurl
+	LIBS += -lpugixml
 }
 
 unix {
