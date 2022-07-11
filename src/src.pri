@@ -5,6 +5,7 @@ SOURCES += \
 	$$PWD/film.cpp \
 	$$PWD/filmcollection.cpp \
 	$$PWD/filmitem.cpp \
+	$$PWD/imdbscraper.cpp \
 	$$PWD/main.cpp \
 	$$PWD/mainwindow.cpp \
 	$$PWD/mpvplayerdialog.cpp \
@@ -19,6 +20,7 @@ HEADERS += \
 	$$PWD/film.h \
 	$$PWD/filmcollection.h \
 	$$PWD/filmitem.h \
+	$$PWD/imdbscraper.h \
 	$$PWD/mainwindow.h \
 	$$PWD/mpvplayerdialog.h \
 	$$PWD/mpvwidget.h \

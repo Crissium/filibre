@@ -4,6 +4,7 @@
 #include "searchdialog.h"
 #include "editmetadatadialog.h"
 #include "additemdialog.h"
+#include "imdbscraper.h"
 #include <QSettings>
 #include <QFileDialog>
 #include <QDir>
@@ -20,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
 	, ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
+
+	ImdbScraper::GlobalInitialise();
 
 	readSettings();
 
@@ -38,6 +41,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+	ImdbScraper::GlobalCleanup();
+
 	delete collection;
 	delete ui;
 }

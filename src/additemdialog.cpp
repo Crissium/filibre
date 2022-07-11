@@ -1,4 +1,5 @@
 #include "additemdialog.h"
+#include "imdbscraper.h"
 #include "ui_additemdialog.h"
 #include <QFileDialog>
 
@@ -24,6 +25,32 @@ AddItemDialog::AddItemDialog(FilmCollection * collection, QWidget *parent) :
 		if (!fileName.isEmpty())
 		{
 			ui->posterEdit->setText(fileName);
+		}
+	});
+
+	connect(ui->downloadMetadataButton, &QPushButton::clicked, this, [this] ()
+	{
+		if (!ui->titleEdit->text().isEmpty() && !ui->yearEdit->text().isEmpty())
+		{
+			imageFilePath = QFileDialog::getSaveFileName(this, "Save downloaded poster to", QDir::homePath(), "Image (*.jpg *.jpeg *.jpe *.png *.tiff *.tif *.bmp)").toStdString();
+
+			if (!imageFilePath.empty())
+			{
+				ScrapedData data = ImdbScraper(ui->titleEdit->text().toStdString(), ui->yearEdit->text().toStdString(), imageFilePath).getMetadata();
+
+				ui->leadEdit->setText(data.stars.c_str());
+				ui->languageEdit->setText(data.languages.c_str());
+				{
+					QString rating;
+					rating.setNum(data.rating);
+					ui->ratingEdit->setText(rating);
+				}
+				ui->directorEdit->setText(data.director.c_str());
+				ui->genreEdit->setText(data.genres.c_str());
+				ui->accoladesEdit->setText(data.awards.c_str());
+				ui->posterEdit->setText(imageFilePath.c_str());
+				ui->synopsisEdit->setPlainText(data.plot.c_str());
+			}
 		}
 	});
 

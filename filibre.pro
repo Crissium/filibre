@@ -16,7 +16,7 @@ windows {
 
 unix {
 	CONFIG += link_pkgconfig
-	PKGCONFIG += pugixml mpv
+	PKGCONFIG += pugixml mpv libcurl nlohmann_json
 }
 
 include($$PWD/src/src.pri)

@@ -20,6 +20,7 @@ private:
 	Ui::AddItemDialog *ui;
 
 	Film film;
+	std::string imageFilePath;
 
 signals:
 	void filmAdded();
