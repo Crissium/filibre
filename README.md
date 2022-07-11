@@ -8,10 +8,17 @@ This is a calibre-like film manager, only replacing the toolbar with a menubar. 
 - A calibre-like user experience, with poster grid view and a left navigation panel.
 - Can export to XML, CSV, HTML inventory.
 - Double click for a in-app preview with a built-in mpv player.
+- Download metadata from IMDb.
 
 # Build
 
-This software is built with Qt 6 qmake, using OpenGLWidget. It also uses [pugixml](https://pugixml.org/) for XML parsing and libmpv for built-in video playing functionality.
+This software is built with Qt 6 qmake, using OpenGLWidget.
+
+Additional dependencies:
+- [pugixml](https://pugixml.org/): XML parsing library
+- libmpv: integrated player
+- libcurl: API calling
+- [nlohmann_json](https://github.com/nlohmann/json): JSON parser
 
 # Install
 
@@ -19,7 +26,7 @@ If you use openSUSE, you can get it from [OBS](https://build.opensuse.org/packag
 
 Or you can build it yourself with qmake6.
 
-We are planning to provide a Windows Installer as well.
+We are provide a Windows Installer as well.
 
 # Contributing
 
