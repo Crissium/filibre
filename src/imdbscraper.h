@@ -1,6 +1,11 @@
 #ifndef IMDBSCRAPER_H
 #define IMDBSCRAPER_H
 
+#ifdef Q_OS_WIN
+#include <curl.h>
+#elif defined(Q_OS_LINUX)
+#include <curl/curl.h>
+#endif
 #include <curl/curl.h>
 #include <string>
 
