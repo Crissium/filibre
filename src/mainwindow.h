@@ -64,6 +64,7 @@ private:
 	QAction * searchAction;
 	QAction * exportHtmlAction;
 	QAction * exportCsvAction;
+	QAction * optionsAction;
 	QAction * quitAction;
 
 	QAction * editMetadataAction;

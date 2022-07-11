@@ -39,6 +39,9 @@ public:
 	static void GlobalInitialise();
 	static void GlobalCleanup();
 
+	static std::string ApiKey;
+	static std::string ProxyAddress;
+
 	ImdbScraper();
 	ImdbScraper(const std::string & _title, const std::string & _year, const std::string & imageFile);
 	~ImdbScraper();

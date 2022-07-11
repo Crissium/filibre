@@ -5,6 +5,7 @@
 #include "editmetadatadialog.h"
 #include "additemdialog.h"
 #include "imdbscraper.h"
+#include "optionsdialog.h"
 #include <QSettings>
 #include <QFileDialog>
 #include <QDir>
@@ -130,6 +131,14 @@ void MainWindow::createActions()
 		}
 	});
 
+	optionsAction = new QAction("&Options", this);
+	connect(optionsAction, &QAction::triggered, this, [this] ()
+	{
+		auto options = new OptionsDialog(this);
+
+		options->show();
+	});
+
 	quitAction = new QAction("&Quit", this);
 	connect(quitAction, &QAction::triggered, QApplication::instance(), &QApplication::quit);
 
@@ -213,6 +222,7 @@ void MainWindow::createMenus()
 	fileMenu->addAction(searchAction);
 	fileMenu->addAction(exportHtmlAction);
 	fileMenu->addAction(exportCsvAction);
+	fileMenu->addAction(optionsAction);
 	fileMenu->addAction(quitAction);
 
 	editMenu = menuBar()->addMenu("&Edit");
@@ -410,6 +420,11 @@ void MainWindow::readSettings()
 	else
 		createNewCollection(); // on first run, create new collection
 	settings.endGroup();
+
+	settings.beginGroup("networking");
+	ImdbScraper::ApiKey = settings.value("APIkey").toString().toStdString();
+	ImdbScraper::ProxyAddress = settings.value("proxy").toString().toStdString();
+	settings.endGroup();
 }
 
 void MainWindow::writeSettings()
@@ -423,6 +438,11 @@ void MainWindow::writeSettings()
 
 	settings.beginGroup("library");
 	settings.setValue("xmlpath", currentlyUsedCollectionXmlFilePath);
+	settings.endGroup();
+
+	settings.beginGroup("networking");
+	settings.setValue("APIkey", ImdbScraper::ApiKey.c_str());
+	settings.setValue("proxy", ImdbScraper::ProxyAddress.c_str());
 	settings.endGroup();
 }
 

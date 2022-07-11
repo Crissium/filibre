@@ -2,6 +2,9 @@
 #include <nlohmann/json.hpp>
 #include <cmath>
 
+std::string ImdbScraper::ApiKey("k_6z1a4g8g");
+std::string ImdbScraper::ProxyAddress("socks5://127.0.0.1:1080");
+
 void ImdbScraper::GlobalInitialise()
 {
 	curl_global_init(CURL_GLOBAL_ALL);
@@ -58,7 +61,7 @@ void ImdbScraper::searchForImdbIdAndImageUrl()
 
 	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
 	curl_easy_setopt(curl, CURLOPT_WRITEDATA, &rawJson);
-	curl_easy_setopt(curl, CURLOPT_URL, ("https://imdb-api.com/en/API/Search/k_6z1a4g8g/" + searchKey).c_str());
+	curl_easy_setopt(curl, CURLOPT_URL, ("https://imdb-api.com/en/API/Search/" + ApiKey + "/" + searchKey).c_str());
 	curl_easy_perform(curl);
 
 	nlohmann::json jsonInfo = nlohmann::json::parse(rawJson);
@@ -85,7 +88,7 @@ void ImdbScraper::downloadMetadata()
 
 	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
 	curl_easy_setopt(curl, CURLOPT_WRITEDATA, &rawJson);
-	curl_easy_setopt(curl, CURLOPT_URL, ("https://imdb-api.com/en/API/Title/k_6z1a4g8g/" + imdbId + "/FullActor,Ratings,").c_str());
+	curl_easy_setopt(curl, CURLOPT_URL, ("https://imdb-api.com/en/API/Title/" + ApiKey + "/" + imdbId + "/FullActor,Ratings,").c_str());
 	curl_easy_perform(curl);
 
 	nlohmann::json jsonInfo = nlohmann::json::parse(rawJson);
@@ -115,7 +118,8 @@ ImdbScraper::ImdbScraper(const std::string & _title, const std::string & _year, 
 	curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "GET");
 	curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
 	curl_easy_setopt(curl, CURLOPT_DEFAULT_PROTOCOL, "https");
-	curl_easy_setopt(curl, CURLOPT_PROXY, "socks5://127.0.0.1:1081");
+	if (!ProxyAddress.empty())
+		curl_easy_setopt(curl, CURLOPT_PROXY, ProxyAddress.c_str());
 	curl_easy_setopt(curl, CURLOPT_HTTPHEADER, nullptr);
 }
 

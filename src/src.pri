@@ -10,6 +10,7 @@ SOURCES += \
 	$$PWD/mainwindow.cpp \
 	$$PWD/mpvplayerdialog.cpp \
 	$$PWD/mpvwidget.cpp \
+	$$PWD/optionsdialog.cpp \
 	$$PWD/runguard.cpp \
 	$$PWD/searchdialog.cpp
 
@@ -24,6 +25,7 @@ HEADERS += \
 	$$PWD/mainwindow.h \
 	$$PWD/mpvplayerdialog.h \
 	$$PWD/mpvwidget.h \
+	$$PWD/optionsdialog.h \
 	$$PWD/qthelper.h \
 	$$PWD/runguard.h \
 	$$PWD/searchdialog.h
@@ -33,5 +35,6 @@ FORMS += \
 	$$PWD/editmetadatadialog.ui \
 	$$PWD/mainwindow.ui \
 	$$PWD/mpvplayerdialog.ui \
+	$$PWD/optionsdialog.ui \
 	$$PWD/searchdialog.ui
 
