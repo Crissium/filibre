@@ -11,7 +11,7 @@ CONFIG += optimize_full
 windows {
 	INCLUDEPATH += 3rdparty/mpv/include
 	LIBS += -L"3rdparty/mpv/lib" -lmpv
-	LIBS += -lpugixml
+	LIBS += -lpugixml -lcurl
 }
 
 unix {
