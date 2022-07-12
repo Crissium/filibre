@@ -26,7 +26,7 @@ If you use openSUSE, you can get it from [OBS](https://build.opensuse.org/packag
 
 Or you can build it yourself with qmake6.
 
-We are provide a Windows Installer as well.
+We provide a Windows Installer as well.
 
 # Contributing
 
