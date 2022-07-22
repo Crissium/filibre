@@ -36,7 +36,7 @@ AddItemDialog::AddItemDialog(FilmCollection * collection, QWidget *parent) :
 
 			if (!imageFilePath.empty())
 			{
-				ScrapedData data = ImdbScraper(ui->titleEdit->text().toStdString(), ui->yearEdit->text().toStdString(), imageFilePath).getMetadata();
+				auto data = ScrapedData(ImdbScraper(ui->titleEdit->text().toStdString(), ui->yearEdit->text().toStdString(), imageFilePath));
 
 				ui->leadEdit->setText(data.stars.c_str());
 				ui->languageEdit->setText(data.languages.c_str());

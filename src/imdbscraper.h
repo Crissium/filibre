@@ -46,7 +46,7 @@ public:
 	ImdbScraper(const std::string & _title, const std::string & _year, const std::string & imageFile);
 	~ImdbScraper();
 
-	ScrapedData getMetadata();
+	explicit operator ScrapedData();
 };
 
 #endif // IMDBSCRAPER_H

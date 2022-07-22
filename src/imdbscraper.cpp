@@ -128,7 +128,7 @@ ImdbScraper::~ImdbScraper()
 	curl_easy_cleanup(curl);
 }
 
-ScrapedData ImdbScraper::getMetadata()
+ImdbScraper::operator ScrapedData()
 {
 	searchForImdbIdAndImageUrl();
 	downloadImage();
