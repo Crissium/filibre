@@ -1,3 +1,6 @@
+# Serious problems. Don't use. Won't maintain & fix.
+
+
 # Description
 
 This is a calibre-like film manager, only replacing the toolbar with a menubar. It stores info in XML and can output the collection inventory to HTML and CSV. There is also a built-in mpv player.
